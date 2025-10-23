@@ -1,6 +1,7 @@
 import React from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
+import Image from "next/image"
 
 const articles = [
   {
@@ -46,9 +47,11 @@ export default function Articles() {
           {articles.map((article, index) => (
             <article key={index} className="flex flex-col items-start">
               <div className="relative w-full">
-                <img
+                <Image
                   src={article.image}
                   alt={article.title}
+                  width={400}
+                  height={400}
                   className="aspect-square w-full rounded-lg bg-gray-800 object-cover"
                 />
                 <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10" />

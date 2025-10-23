@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,10 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" strategy="beforeInteractive" />
-        <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" strategy="beforeInteractive" />
-        <Script src="https://cdn.jsdelivr.net/npm/three@0.138.0/build/three.min.js" strategy="beforeInteractive" />
-        <Script src="https://cdn.jsdelivr.net/npm/three@0.138.0/examples/js/controls/OrbitControls.js" strategy="beforeInteractive" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" />
+        <script src="https://cdn.jsdelivr.net/npm/three@0.138.0/build/three.min.js" />
+        <script src="https://cdn.jsdelivr.net/npm/three@0.138.0/examples/js/controls/OrbitControls.js" />
       </head>
       <body className={inter.className}>{children}</body>
     </html>
