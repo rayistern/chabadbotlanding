@@ -29,33 +29,47 @@ export default function Hero() {
       renderer.setPixelRatio(window.devicePixelRatio);
       globeContainerRef.current.appendChild(renderer.domElement);
 
-      // Globe
+      // Globe with custom texture - children's book style
       const geometry = new THREE.SphereGeometry(2.5, 64, 64);
+      
+      // Load custom texture
+      const textureLoader = new THREE.TextureLoader();
+      const globeTexture = textureLoader.load('/texture2.jpg');
+      globeTexture.wrapS = THREE.RepeatWrapping;
+      globeTexture.wrapT = THREE.ClampToEdgeWrapping;
+      
       const material = new THREE.MeshPhongMaterial({
-        color: 0x251B33,
-        shininess: 10,
+        map: globeTexture,
+        color: 0x4CAF50, // Clean green for land
+        emissive: 0x2196F3, // Clean blue for water
+        emissiveIntensity: 0.5,
+        shininess: 0.1, // Very matte for flat illustration look
         specular: 0x111111,
+        // Flat appearance - no bump or displacement
+        bumpMap: null,
+        normalMap: null,
+        displacementMap: null,
       });
       const sphere = new THREE.Mesh(geometry, material);
       scene.add(sphere);
 
-      // Lights
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+      // Lights - Green and blue theme
+      const ambientLight = new THREE.AmbientLight(0xE8F5E8, 0.8); // Very light green tint
       scene.add(ambientLight);
-      const pointLight = new THREE.PointLight(0x9D4EDD, 1.5, 100);
+      const pointLight = new THREE.PointLight(0xE3F2FD, 1.2, 100); // Very light blue
       pointLight.position.set(5, 5, 5);
       scene.add(pointLight);
-      const pointLight2 = new THREE.PointLight(0xF4D35E, 1, 100);
+      const pointLight2 = new THREE.PointLight(0xF1F8E9, 0.8, 100); // Very light green
       pointLight2.position.set(-10, -5, -5);
       scene.add(pointLight2);
 
       camera.position.z = 5;
 
-      // Stars
+      // Stars - Blue theme
       const starGeometry = new THREE.BufferGeometry();
-      const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.02 });
+      const starMaterial = new THREE.PointsMaterial({ color: 0xE3F2FD, size: 0.02 }); // Very light blue
       const starVertices = [];
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 2000; i++) { // Reduced count for cleaner look
         const x = (Math.random() - 0.5) * 2000;
         const y = (Math.random() - 0.5) * 2000;
         const z = (Math.random() - 0.5) * 2000;
@@ -84,13 +98,13 @@ export default function Hero() {
       chabadCenters.forEach(center => {
         const latRad = center.lat * (Math.PI / 180);
         const lonRad = -center.lon * (Math.PI / 180);
-        const pointGeometry = new THREE.SphereGeometry(0.04, 16, 16);
-        const pointMaterial = new THREE.MeshBasicMaterial({ color: 0xF4D35E });
+        const pointGeometry = new THREE.SphereGeometry(0.03, 16, 16); // Smaller for cleaner look
+        const pointMaterial = new THREE.MeshBasicMaterial({ color: 0xFFFFFF }); // Bright white like lights
         const point = new THREE.Mesh(pointGeometry, pointMaterial);
         point.position.set(
-          Math.cos(latRad) * Math.cos(lonRad) * 2.5,
-          Math.sin(latRad) * 2.5,
-          Math.cos(latRad) * Math.sin(lonRad) * 2.5
+          Math.cos(latRad) * Math.cos(lonRad) * 2.501, // Slightly above surface
+          Math.sin(latRad) * 2.501,
+          Math.cos(latRad) * Math.sin(lonRad) * 2.501
         );
         pointsParent.add(point);
       });
