@@ -1,29 +1,36 @@
 import React from "react"
+import Image from "next/image"
 
 const features = [
   {
     title: "Torah Study Assistant",
-    description: "Get instant explanations and insights on Torah passages, Talmudic discussions, and Jewish law with our advanced AI."
+    description: "Get instant explanations and insights on Torah passages, Talmudic discussions, and Jewish law with our advanced AI.",
+    image: "/1.png"
   },
   {
     title: "Personalized Learning",
-    description: "Adaptive learning paths that adjust to your level and interests, making Jewish education more accessible and engaging."
+    description: "Adaptive learning paths that adjust to your level and interests, making Jewish education more accessible and engaging.",
+    image: "/2.png"
   },
   {
     title: "Multi-Language Support",
-    description: "Access content in Hebrew, English, Yiddish, and more with seamless translation and cultural context."
+    description: "Access content in Hebrew, English, Yiddish, and more with seamless translation and cultural context.",
+    image: "/3.png"
   },
   {
     title: "Halachic Guidance",
-    description: "Get reliable guidance on Jewish law and customs with sources and explanations from trusted rabbinic authorities."
+    description: "Get reliable guidance on Jewish law and customs with sources and explanations from trusted rabbinic authorities.",
+    image: "/1.png"
   },
   {
     title: "Community Features",
-    description: "Connect with fellow learners, share insights, and participate in study groups within our secure platform."
+    description: "Connect with fellow learners, share insights, and participate in study groups within our secure platform.",
+    image: "/2.png"
   },
   {
     title: "Instant Answers",
-    description: "Ask questions about Jewish texts, traditions, or practices and get comprehensive, well-sourced answers instantly."
+    description: "Ask questions about Jewish texts, traditions, or practices and get comprehensive, well-sourced answers instantly.",
+    image: "/3.png"
   }
 ]
 
@@ -48,6 +55,15 @@ export default function Features() {
                   {feature.title}
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-300">
+                  <div className="mb-4">
+                    <Image 
+                      src={feature.image} 
+                      alt={feature.title}
+                      width={400}
+                      height={300}
+                      className="rounded-lg object-cover w-full"
+                    />
+                  </div>
                   <p className="flex-auto">{feature.description}</p>
                 </dd>
               </div>

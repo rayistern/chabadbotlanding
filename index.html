@@ -669,7 +669,21 @@
                     .to(camera.position, { z: 180, ease: "power1.inOut" }, 0)
                     // Phase 2: Fade out text as chat fades in (30-40%)
                     .to("#globe-text", { opacity: 0, ease: "power1.inOut", duration: 0.1 }, 0.3)
-                    .to("#chat-input", { opacity: 1, scale: 1, ease: "power1.inOut", duration: 0.1 }, 0.3)
+                    .to("#chat-input", {
+                        opacity: 1,
+                        scale: 1,
+                        ease: "power1.inOut",
+                        duration: 0.1,
+                        onComplete: () => {
+                            // Auto-focus on desktop only
+                            if (window.innerWidth >= 1024) {
+                                const inputField = document.getElementById('chat-input-field');
+                                if (inputField) {
+                                    inputField.focus();
+                                }
+                            }
+                        }
+                    }, 0.3)
                     .to(globe.rotation, { y: "+=3.14", ease: "none" }, 0.25)
                     // Phase 3: Globe fades out faster/earlier (35-55%), giving chat more time
                     .to("#globe-container", { opacity: 0, ease: "power2.inOut", duration: 0.2 }, 0.35)
@@ -751,24 +765,28 @@
             const sendButton = document.getElementById('send-button');
 
             if (chatInputField && customPlaceholder) {
-                // Hide custom placeholder when user focuses or types
-                chatInputField.addEventListener('focus', () => {
-                    if (chatInputField.value === '') {
-                        customPlaceholder.style.opacity = '0.5';
-                    }
-                });
+                const isMobile = window.innerWidth < 1024;
 
-                chatInputField.addEventListener('blur', () => {
-                    if (chatInputField.value === '') {
-                        customPlaceholder.style.opacity = '1';
-                    }
-                });
+                // Only add focus/blur listeners on desktop
+                if (!isMobile) {
+                    chatInputField.addEventListener('focus', () => {
+                        if (chatInputField.value === '') {
+                            customPlaceholder.style.opacity = '0.5';
+                        }
+                    });
+
+                    chatInputField.addEventListener('blur', () => {
+                        if (chatInputField.value === '') {
+                            customPlaceholder.style.opacity = '1';
+                        }
+                    });
+                }
 
                 chatInputField.addEventListener('input', () => {
                     if (chatInputField.value === '') {
                         customPlaceholder.style.display = 'block';
-                        // Resume placeholder rotation when input is cleared
-                        if (!placeholderInterval) {
+                        // Resume placeholder rotation when input is cleared (desktop only)
+                        if (!isMobile && !placeholderInterval) {
                             placeholderInterval = setInterval(rotatePlaceholder, 3000);
                         }
                         // Disable send button when empty
