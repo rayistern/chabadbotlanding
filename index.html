@@ -459,7 +459,7 @@
                     scrollTrigger: {
                         trigger: "#globe-section",
                         start: "top top",
-                        end: "+=3000",
+                        end: "+=4000",
                         scrub: 1,
                         pin: true,
                         onUpdate: (self) => {
@@ -468,16 +468,16 @@
                         }
                     }
                 })
-                    // Phase 1: Spin globe and fade out text (0-33%)
+                    // Phase 1: Spin globe and fade out text (0-25%)
                     .to(globe.rotation, { y: "+=3.14", ease: "none" }, 0)
                     .to(camera.position, { z: 180, ease: "power1.inOut" }, 0)
-                    .to("#globe-text", { opacity: 0, scale: 0.8, ease: "power1.in" }, 0.2)
-                    // Phase 2: Fade in chat input (33-66%)
-                    .to("#chat-input", { opacity: 1, scale: 1, ease: "power1.out", duration: 0.3 }, 0.4)
-                    .to(globe.rotation, { y: "+=3.14", ease: "none" }, 0.33)
-                    // Phase 3: Fade out globe, keep chat (66-100%)
-                    .to("#globe-container", { opacity: 0, ease: "power1.in" }, 0.7)
-                    .to(camera.position, { z: 150, ease: "power1.inOut" }, 0.7);
+                    .to("#globe-text", { opacity: 0, scale: 0.8, ease: "power1.in" }, 0.15)
+                    // Phase 2: Fade in chat input quickly (25-40%)
+                    .to("#chat-input", { opacity: 1, scale: 1, ease: "power1.out", duration: 0.2 }, 0.3)
+                    .to(globe.rotation, { y: "+=3.14", ease: "none" }, 0.25)
+                    // Phase 3: Chat stays prominent, globe fades VERY slowly (40-100%)
+                    .to("#globe-container", { opacity: 0, ease: "power2.inOut", duration: 0.6 }, 0.5)
+                    .to(camera.position, { z: 150, ease: "power1.inOut" }, 0.5);
 
                 window.addEventListener('resize', () => {
                     camera.aspect = globeContainer.offsetWidth / globeContainer.offsetHeight;
@@ -486,45 +486,45 @@
                 });
             }
 
-        // Rotating placeholder text
-        const placeholders = [
-            "What is the meaning of this week's Torah portion?",
-            "Explain the laws of Shabbat candle lighting...",
-            "Tell me about the Rebbe's teachings on education",
-            "How do I prepare for Passover?",
-            "What are the daily prayer times today?",
-            "Explain the concept of Tikkun Olam",
-            "What is the significance of the mezuzah?",
-            "How can I study Tanya effectively?",
-            "What are the laws of keeping kosher?",
-            "Tell me about Jewish holidays this month"
-        ];
+            // Rotating placeholder text
+            const placeholders = [
+                "What is the meaning of this week's Torah portion?",
+                "Explain the laws of Shabbat candle lighting...",
+                "Tell me about the Rebbe's teachings on education",
+                "How do I prepare for Passover?",
+                "What are the daily prayer times today?",
+                "Explain the concept of Tikkun Olam",
+                "What is the significance of the mezuzah?",
+                "How can I study Tanya effectively?",
+                "What are the laws of keeping kosher?",
+                "Tell me about Jewish holidays this month"
+            ];
 
-        let currentPlaceholderIndex = 0;
-        const inputField = document.getElementById('chat-input-field');
+            let currentPlaceholderIndex = 0;
+            const inputField = document.getElementById('chat-input-field');
 
-        function rotatePlaceholder() {
-            if (!inputField) return;
+            function rotatePlaceholder() {
+                if (!inputField) return;
 
-            // Fade out
-            inputField.style.transition = 'opacity 0.5s ease-in-out';
-            inputField.style.opacity = '0.3';
+                // Fade out
+                inputField.style.transition = 'opacity 0.5s ease-in-out';
+                inputField.style.opacity = '0.3';
 
+                setTimeout(() => {
+                    // Change text
+                    currentPlaceholderIndex = (currentPlaceholderIndex + 1) % placeholders.length;
+                    inputField.placeholder = placeholders[currentPlaceholderIndex];
+
+                    // Fade in
+                    inputField.style.opacity = '1';
+                }, 500);
+            }
+
+            // Start rotating after chat input appears, then every 3 seconds
             setTimeout(() => {
-                // Change text
-                currentPlaceholderIndex = (currentPlaceholderIndex + 1) % placeholders.length;
-                inputField.placeholder = placeholders[currentPlaceholderIndex];
-
-                // Fade in
-                inputField.style.opacity = '1';
-            }, 500);
-        }
-
-        // Start rotating after chat input appears, then every 3 seconds
-        setTimeout(() => {
-            setInterval(rotatePlaceholder, 3000);
-        }, 2000);
-    });
+                setInterval(rotatePlaceholder, 3000);
+            }, 2000);
+        });
     </script>
 
 </body>
