@@ -60,6 +60,44 @@
         .image-hover-container:hover .image-hover-zoom {
             transform: scale(1.1);
         }
+
+        /* Blinking cursor with purple glow */
+        .cursor-blink {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background-color: rgba(157, 78, 221, 0.9);
+            margin-left: 2px;
+            animation: blink 1s infinite;
+            box-shadow: 0 0 8px rgba(157, 78, 221, 0.8), 0 0 12px rgba(157, 78, 221, 0.5);
+            vertical-align: middle;
+            position: relative;
+            top: -2px;
+        }
+
+        @keyframes blink {
+
+            0%,
+            49% {
+                opacity: 1;
+            }
+
+            50%,
+            100% {
+                opacity: 0;
+            }
+        }
+
+        /* Mobile: show chat input immediately */
+        @media (max-width: 1023px) {
+            #chat-input {
+                opacity: 1 !important;
+            }
+
+            #globe-text {
+                display: none;
+            }
+        }
     </style>
 </head>
 
@@ -141,10 +179,14 @@
                     class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl px-6 z-20 opacity-0">
                     <form id="chat-form"
                         class="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700 p-6">
-                        <div class="flex items-center gap-4">
-                            <input id="chat-input-field" type="text"
-                                placeholder="How can I help you with your shlichus today?"
-                                class="flex-1 bg-gray-900/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl px-6 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        <div class="flex items-center gap-4 relative">
+                            <div class="flex-1 relative">
+                                <input id="chat-input-field" type="text"
+                                    placeholder="How can I help you with your shlichus today?"
+                                    class="w-full bg-gray-900/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl px-6 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                <span id="cursor" class="cursor-blink absolute"
+                                    style="left: 24px; top: 50%; transform: translateY(-50%); display: none;"></span>
+                            </div>
                             <button type="submit"
                                 class="bg-gray-700 hover:bg-gray-600 text-white font-semibold p-4 rounded-xl transition-colors flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -596,64 +638,21 @@
             function rotatePlaceholder() {
                 if (!inputField) return;
 
-                // Create a temporary element to animate the placeholder text
-                const tempPlaceholder = document.createElement('div');
-                tempPlaceholder.textContent = inputField.placeholder;
-                tempPlaceholder.style.cssText = `
-                    position: absolute;
-                    left: ${inputField.offsetLeft + 24}px;
-                    top: ${inputField.offsetTop + 16}px;
-                    color: rgb(156, 163, 175);
-                    font-size: 1.125rem;
-                    pointer-events: none;
-                    z-index: 25;
-                `;
-                inputField.parentElement.appendChild(tempPlaceholder);
-
-                // Animate out (slide up and fade)
-                gsap.to(tempPlaceholder, {
-                    y: -20,
+                // Simple fade transition
+                gsap.to(inputField, {
                     opacity: 0,
-                    duration: 0.4,
-                    ease: "power2.in",
+                    duration: 0.3,
+                    ease: "power2.inOut",
                     onComplete: () => {
-                        tempPlaceholder.remove();
+                        currentPlaceholderIndex = (currentPlaceholderIndex + 1) % placeholders.length;
+                        inputField.placeholder = placeholders[currentPlaceholderIndex];
+                        gsap.to(inputField, {
+                            opacity: 1,
+                            duration: 0.3,
+                            ease: "power2.inOut"
+                        });
                     }
                 });
-
-                // Change placeholder and animate in
-                setTimeout(() => {
-                    currentPlaceholderIndex = (currentPlaceholderIndex + 1) % placeholders.length;
-                    inputField.placeholder = placeholders[currentPlaceholderIndex];
-
-                    const newPlaceholder = document.createElement('div');
-                    newPlaceholder.textContent = inputField.placeholder;
-                    newPlaceholder.style.cssText = `
-                        position: absolute;
-                        left: ${inputField.offsetLeft + 24}px;
-                        top: ${inputField.offsetTop + 16}px;
-                        color: rgb(156, 163, 175);
-                        font-size: 1.125rem;
-                        pointer-events: none;
-                        z-index: 25;
-                        opacity: 0;
-                    `;
-                    inputField.parentElement.appendChild(newPlaceholder);
-
-                    // Animate in (slide up from below and fade in)
-                    gsap.fromTo(newPlaceholder,
-                        { y: 20, opacity: 0 },
-                        {
-                            y: 0,
-                            opacity: 1,
-                            duration: 0.4,
-                            ease: "power2.out",
-                            onComplete: () => {
-                                newPlaceholder.remove();
-                            }
-                        }
-                    );
-                }, 200);
             }
 
             // Start rotating after chat input appears, then every 3 seconds
@@ -664,6 +663,28 @@
             // Handle chat form submission
             const chatForm = document.getElementById('chat-form');
             const chatInputField = document.getElementById('chat-input-field');
+            const cursor = document.getElementById('cursor');
+
+            // Show/hide cursor based on input focus and value
+            if (chatInputField && cursor) {
+                chatInputField.addEventListener('focus', () => {
+                    if (chatInputField.value === '') {
+                        cursor.style.display = 'inline-block';
+                    }
+                });
+
+                chatInputField.addEventListener('blur', () => {
+                    cursor.style.display = 'none';
+                });
+
+                chatInputField.addEventListener('input', () => {
+                    if (chatInputField.value === '') {
+                        cursor.style.display = 'inline-block';
+                    } else {
+                        cursor.style.display = 'none';
+                    }
+                });
+            }
 
             if (chatForm) {
                 chatForm.addEventListener('submit', (e) => {
