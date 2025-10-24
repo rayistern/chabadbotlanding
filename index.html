@@ -38,6 +38,18 @@
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Dosis', sans-serif;
         }
+        
+        .image-hover-container {
+            overflow: hidden;
+        }
+        
+        .image-hover-zoom {
+            transition: transform 0.3s ease;
+        }
+        
+        .image-hover-container:hover .image-hover-zoom {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 
@@ -115,7 +127,7 @@
                     <h2 class="text-4xl md:text-6xl font-semibold text-gray-400">How can I help your shlichus today?</h2>
                 </div>
                 <div id="chat-input"
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl px-6 z-20 opacity-0">
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl px-6 z-20 opacity-0">
                     <form id="chat-form"
                         class="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700 p-6">
                         <div class="flex items-center gap-4">
@@ -144,11 +156,10 @@
 
             <div class="relative z-30">
                 <!-- Features Section -->
-                <div id="features" class="py-24 sm:py-32">
+                <div id="features" class="py-12 sm:py-16">
                     <div class="mx-auto max-w-7xl px-6 lg:px-8">
                         <div class="mx-auto max-w-2xl lg:text-center">
-                            <h2 class="text-base font-semibold leading-7 text-gray-300">Features</h2>
-                            <p class="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                            <p class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                                 Powerful Features for Jewish Learning
                             </p>
                             <p class="mt-6 text-lg leading-8 text-gray-300">
@@ -159,9 +170,9 @@
                         <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
                             <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
                                 <div class="flex flex-row gap-4">
-                                    <div class="flex-shrink-0 rounded-lg overflow-hidden w-32 h-32">
+                                    <div class="flex-shrink-0 rounded-lg image-hover-container w-32 h-32"><a href="#">
                                         <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=200&h=200&fit=crop"
-                                            alt="Torah Study" class="w-full h-full object-cover">
+                                            alt="Torah Study" class="w-full h-full object-cover image-hover-zoom"></a>
                                     </div>
                                     <div class="flex-1">
                                         <dt class="text-base font-semibold leading-7 text-white">Torah Study Assistant
@@ -174,9 +185,9 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-row gap-4">
-                                    <div class="flex-shrink-0 rounded-lg overflow-hidden w-32 h-32">
+                                    <div class="flex-shrink-0 rounded-lg image-hover-container w-32 h-32"><a href="#">
                                         <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=200&h=200&fit=crop"
-                                            alt="Personalized Learning" class="w-full h-full object-cover">
+                                            alt="Personalized Learning" class="w-full h-full object-cover image-hover-zoom"></a>
                                     </div>
                                     <div class="flex-1">
                                         <dt class="text-base font-semibold leading-7 text-white">Personalized Learning
@@ -188,9 +199,9 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-row gap-4">
-                                    <div class="flex-shrink-0 rounded-lg overflow-hidden w-32 h-32">
+                                    <div class="flex-shrink-0 rounded-lg image-hover-container w-32 h-32"><a href="#">
                                         <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=200&h=200&fit=crop"
-                                            alt="Multi-Language" class="w-full h-full object-cover">
+                                            alt="Multi-Language" class="w-full h-full object-cover image-hover-zoom"></a>
                                     </div>
                                     <div class="flex-1">
                                         <dt class="text-base font-semibold leading-7 text-white">Multi-Language Support
@@ -203,9 +214,9 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-row gap-4">
-                                    <div class="flex-shrink-0 rounded-lg overflow-hidden w-32 h-32">
+                                    <div class="flex-shrink-0 rounded-lg image-hover-container w-32 h-32"><a href="#">
                                         <img src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?w=200&h=200&fit=crop"
-                                            alt="Halachic Guidance" class="w-full h-full object-cover">
+                                            alt="Halachic Guidance" class="w-full h-full object-cover image-hover-zoom"></a>
                                     </div>
                                     <div class="flex-1">
                                         <dt class="text-base font-semibold leading-7 text-white">Halachic Guidance</dt>
@@ -216,9 +227,9 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-row gap-4">
-                                    <div class="flex-shrink-0 rounded-lg overflow-hidden w-32 h-32">
+                                    <div class="flex-shrink-0 rounded-lg image-hover-container w-32 h-32"><a href="#">
                                         <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=200&h=200&fit=crop"
-                                            alt="Community" class="w-full h-full object-cover">
+                                            alt="Community" class="w-full h-full object-cover image-hover-zoom"></a>
                                     </div>
                                     <div class="flex-1">
                                         <dt class="text-base font-semibold leading-7 text-white">Community Features</dt>
@@ -229,9 +240,9 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-row gap-4">
-                                    <div class="flex-shrink-0 rounded-lg overflow-hidden w-32 h-32">
+                                    <div class="flex-shrink-0 rounded-lg image-hover-container w-32 h-32"><a href="#">
                                         <img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=200&h=200&fit=crop"
-                                            alt="Instant Answers" class="w-full h-full object-cover">
+                                            alt="Instant Answers" class="w-full h-full object-cover image-hover-zoom"></a>
                                     </div>
                                     <div class="flex-1">
                                         <dt class="text-base font-semibold leading-7 text-white">Instant Answers</dt>
@@ -251,8 +262,7 @@
                 <div id="articles" class="bg-gray-900 py-24 sm:py-32">
                     <div class="mx-auto max-w-7xl px-6 lg:px-8">
                         <div class="mx-auto max-w-2xl lg:text-center">
-                            <h2 class="text-base font-semibold leading-7 text-gray-300">Blog</h2>
-                            <p class="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                            <p class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                                 Featured Articles
                             </p>
                             <p class="mt-6 text-lg leading-8 text-gray-300">
@@ -263,9 +273,11 @@
                             class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                             <!-- Article 1 -->
                             <article class="flex flex-col items-start">
-                                <div class="relative w-full">
-                                    <img src="/1.png" alt="Article"
-                                        class="aspect-square w-full rounded-lg bg-gray-800 object-cover" />
+                                <div class="relative w-full image-hover-container rounded-lg">
+                                    <a href="#">
+                                        <img src="/1.png" alt="Article"
+                                            class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom" />
+                                    </a>
                                 </div>
                                 <div class="flex items-center gap-x-4 text-xs mt-6">
                                     <time class="text-gray-400">Dec 15, 2023</time>
@@ -289,9 +301,11 @@
                             </article>
                             <!-- Article 2 -->
                             <article class="flex flex-col items-start">
-                                <div class="relative w-full">
-                                    <img src="/2.png" alt="Article"
-                                        class="aspect-square w-full rounded-lg bg-gray-800 object-cover" />
+                                <div class="relative w-full image-hover-container rounded-lg">
+                                    <a href="#">
+                                        <img src="/2.png" alt="Article"
+                                            class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom" />
+                                    </a>
                                 </div>
                                 <div class="flex items-center gap-x-4 text-xs mt-6">
                                     <time class="text-gray-400">Dec 12, 2023</time>
@@ -315,9 +329,11 @@
                             </article>
                             <!-- Article 3 -->
                             <article class="flex flex-col items-start">
-                                <div class="relative w-full">
-                                    <img src="/3.png" alt="Article"
-                                        class="aspect-square w-full rounded-lg bg-gray-800 object-cover" />
+                                <div class="relative w-full image-hover-container rounded-lg">
+                                    <a href="#">
+                                        <img src="/3.png" alt="Article"
+                                            class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom" />
+                                    </a>
                                 </div>
                                 <div class="flex items-center gap-x-4 text-xs mt-6">
                                     <time class="text-gray-400">Dec 10, 2023</time>
