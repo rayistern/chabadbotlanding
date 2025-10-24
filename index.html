@@ -68,9 +68,10 @@
 
 
 
-        /* Slight white glow behind chat box */
-        #chat-form {
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.08);
+        /* Darker glow behind chat box */
+        #chat-form-desktop,
+        #chat-form-mobile {
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
         }
 
         /* Placeholder fade animations */
@@ -100,12 +101,8 @@
 
 
 
-        /* Mobile: show chat input immediately */
+        /* Mobile: hide globe text */
         @media (max-width: 1023px) {
-            #chat-input {
-                opacity: 1 !important;
-            }
-
             #globe-text {
                 display: none;
             }
@@ -183,20 +180,43 @@
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-extralight text-white whitespace-nowrap">How can I
                         help you with your shlichus today?</h2>
                 </div>
+                <!-- Desktop Chat Input -->
                 <div id="chat-input"
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl px-6 z-20 opacity-0">
-                    <form id="chat-form"
-                        class="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700 p-6">
+                    class="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl px-6 z-20 opacity-0">
+                    <form id="chat-form-desktop"
+                        class="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700 p-8">
                         <div class="flex items-center gap-4 relative">
                             <div class="flex-1 relative">
-                                <input id="chat-input-field" type="text" placeholder="" inputmode="text"
-                                    class="w-full bg-gray-900/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl px-6 py-6 lg:py-4 text-lg focus:outline-none focus:ring-2 focus:ring-gray-500" />
-                                <div id="custom-placeholder"
-                                    class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none transition-opacity duration-400">
+                                <input id="chat-input-field-desktop" type="text" placeholder=""
+                                    class="w-full bg-gray-900/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl px-6 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-gray-500" />
+                                <div id="custom-placeholder-desktop"
+                                    class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none">
                                     How can I help you with your shlichus today?
                                 </div>
                             </div>
-                            <button type="submit" id="send-button"
+                            <button type="submit" id="send-button-desktop"
+                                class="bg-gray-700 text-gray-500 font-semibold p-4 rounded-xl transition-all flex items-center justify-center cursor-not-allowed"
+                                disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Mobile Chat Input (Simple, no animations) -->
+                <div id="chat-input-mobile"
+                    class="lg:hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl px-6 z-20">
+                    <form id="chat-form-mobile"
+                        class="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700 p-8">
+                        <div class="flex items-center gap-4">
+                            <input id="chat-input-field-mobile" type="text"
+                                placeholder="How can I help you with your shlichus today?"
+                                class="flex-1 bg-gray-900/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl px-6 py-6 text-lg focus:outline-none focus:ring-2 focus:ring-gray-500" />
+                            <button type="submit" id="send-button-mobile"
                                 class="bg-gray-700 text-gray-500 font-semibold p-4 rounded-xl transition-all flex items-center justify-center cursor-not-allowed"
                                 disabled>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -693,8 +713,8 @@
             ];
 
             let currentPlaceholderIndex = 0;
-            const inputField = document.getElementById('chat-input-field');
-            const customPlaceholder = document.getElementById('custom-placeholder');
+            const inputField = document.getElementById('chat-input-field-desktop');
+            const customPlaceholder = document.getElementById('custom-placeholder-desktop');
 
             let placeholderInterval;
             let isAnimating = false;
@@ -738,69 +758,80 @@
                 }, 2000);
             }
 
-            // Handle chat form submission
-            const chatForm = document.getElementById('chat-form');
-            const chatInputField = document.getElementById('chat-input-field');
-            const sendButton = document.getElementById('send-button');
+            // Desktop chat input handling
+            const chatFormDesktop = document.getElementById('chat-form-desktop');
+            const chatInputFieldDesktop = document.getElementById('chat-input-field-desktop');
+            const sendButtonDesktop = document.getElementById('send-button-desktop');
+            const customPlaceholderDesktop = document.getElementById('custom-placeholder-desktop');
 
-            if (chatInputField && customPlaceholder) {
-                const isMobile = window.innerWidth < 1024;
+            if (chatInputFieldDesktop && customPlaceholderDesktop) {
+                chatInputFieldDesktop.addEventListener('focus', () => {
+                    if (chatInputFieldDesktop.value === '') {
+                        customPlaceholderDesktop.style.opacity = '0.5';
+                    }
+                });
 
-                // Only add focus/blur listeners on desktop
-                if (!isMobile) {
-                    chatInputField.addEventListener('focus', () => {
-                        if (chatInputField.value === '') {
-                            customPlaceholder.style.opacity = '0.5';
+                chatInputFieldDesktop.addEventListener('blur', () => {
+                    if (chatInputFieldDesktop.value === '') {
+                        customPlaceholderDesktop.style.opacity = '1';
+                    }
+                });
+
+                chatInputFieldDesktop.addEventListener('input', () => {
+                    if (chatInputFieldDesktop.value === '') {
+                        customPlaceholderDesktop.style.display = 'block';
+                        if (!placeholderInterval) {
+                            placeholderInterval = setInterval(rotatePlaceholder, 3000);
                         }
-                    });
-
-                    chatInputField.addEventListener('blur', () => {
-                        if (chatInputField.value === '') {
-                            customPlaceholder.style.opacity = '1';
-                        }
-                    });
-                }
-
-                chatInputField.addEventListener('input', () => {
-                    if (chatInputField.value === '') {
-                        // Only manipulate placeholder on desktop
-                        if (!isMobile) {
-                            customPlaceholder.style.display = 'block';
-                            // Resume placeholder rotation when input is cleared
-                            if (!placeholderInterval) {
-                                placeholderInterval = setInterval(rotatePlaceholder, 3000);
-                            }
-                        }
-                        // Disable send button when empty
-                        if (sendButton) {
-                            sendButton.disabled = true;
-                            sendButton.classList.remove('bg-white', 'text-black', 'hover:bg-gray-100', 'cursor-pointer');
-                            sendButton.classList.add('bg-gray-700', 'text-gray-500', 'cursor-not-allowed');
+                        if (sendButtonDesktop) {
+                            sendButtonDesktop.disabled = true;
+                            sendButtonDesktop.classList.remove('bg-white', 'text-black', 'hover:bg-gray-100', 'cursor-pointer');
+                            sendButtonDesktop.classList.add('bg-gray-700', 'text-gray-500', 'cursor-not-allowed');
                         }
                     } else {
-                        // Only manipulate placeholder on desktop
-                        if (!isMobile) {
-                            customPlaceholder.style.display = 'none';
-                            // Stop placeholder rotation when user types
-                            if (placeholderInterval) {
-                                clearInterval(placeholderInterval);
-                                placeholderInterval = null;
-                            }
+                        customPlaceholderDesktop.style.display = 'none';
+                        if (placeholderInterval) {
+                            clearInterval(placeholderInterval);
+                            placeholderInterval = null;
                         }
-                        // Enable send button when text is entered
-                        if (sendButton) {
-                            sendButton.disabled = false;
-                            sendButton.classList.remove('bg-gray-700', 'text-gray-500', 'cursor-not-allowed');
-                            sendButton.classList.add('bg-white', 'text-black', 'hover:bg-gray-100', 'cursor-pointer');
+                        if (sendButtonDesktop) {
+                            sendButtonDesktop.disabled = false;
+                            sendButtonDesktop.classList.remove('bg-gray-700', 'text-gray-500', 'cursor-not-allowed');
+                            sendButtonDesktop.classList.add('bg-white', 'text-black', 'hover:bg-gray-100', 'cursor-pointer');
                         }
                     }
                 });
             }
 
-            if (chatForm) {
-                chatForm.addEventListener('submit', (e) => {
+            if (chatFormDesktop) {
+                chatFormDesktop.addEventListener('submit', (e) => {
                     e.preventDefault();
-                    // Redirect to chatbot
+                    window.location.href = 'https://nextjs-ai-chatbot-omega-murex-86.vercel.app/';
+                });
+            }
+
+            // Mobile chat input handling (simple, no animations)
+            const chatFormMobile = document.getElementById('chat-form-mobile');
+            const chatInputFieldMobile = document.getElementById('chat-input-field-mobile');
+            const sendButtonMobile = document.getElementById('send-button-mobile');
+
+            if (chatInputFieldMobile && sendButtonMobile) {
+                chatInputFieldMobile.addEventListener('input', () => {
+                    if (chatInputFieldMobile.value === '') {
+                        sendButtonMobile.disabled = true;
+                        sendButtonMobile.classList.remove('bg-white', 'text-black', 'hover:bg-gray-100', 'cursor-pointer');
+                        sendButtonMobile.classList.add('bg-gray-700', 'text-gray-500', 'cursor-not-allowed');
+                    } else {
+                        sendButtonMobile.disabled = false;
+                        sendButtonMobile.classList.remove('bg-gray-700', 'text-gray-500', 'cursor-not-allowed');
+                        sendButtonMobile.classList.add('bg-white', 'text-black', 'hover:bg-gray-100', 'cursor-pointer');
+                    }
+                });
+            }
+
+            if (chatFormMobile) {
+                chatFormMobile.addEventListener('submit', (e) => {
+                    e.preventDefault();
                     window.location.href = 'https://nextjs-ai-chatbot-omega-murex-86.vercel.app/';
                 });
             }
