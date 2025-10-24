@@ -709,21 +709,38 @@
             function rotatePlaceholder() {
                 if (!inputField) return;
 
-                // Simple fade transition
-                gsap.to(inputField, {
+                // Fade only the placeholder attribute, not the entire input
+                const tempSpan = document.createElement('span');
+                tempSpan.textContent = inputField.placeholder;
+                tempSpan.style.cssText = `
+                    position: absolute;
+                    left: ${inputField.offsetLeft + 24}px;
+                    top: ${inputField.offsetTop}px;
+                    height: ${inputField.offsetHeight}px;
+                    display: flex;
+                    align-items: center;
+                    color: rgb(156, 163, 175);
+                    font-size: 1.125rem;
+                    pointer-events: none;
+                    z-index: 1;
+                `;
+                inputField.parentElement.parentElement.appendChild(tempSpan);
+
+                // Fade out the temporary span
+                gsap.to(tempSpan, {
                     opacity: 0,
                     duration: 0.3,
                     ease: "power2.inOut",
                     onComplete: () => {
-                        currentPlaceholderIndex = (currentPlaceholderIndex + 1) % placeholders.length;
-                        inputField.placeholder = placeholders[currentPlaceholderIndex];
-                        gsap.to(inputField, {
-                            opacity: 1,
-                            duration: 0.3,
-                            ease: "power2.inOut"
-                        });
+                        tempSpan.remove();
                     }
                 });
+
+                // Change the actual placeholder (hidden during transition)
+                setTimeout(() => {
+                    currentPlaceholderIndex = (currentPlaceholderIndex + 1) % placeholders.length;
+                    inputField.placeholder = placeholders[currentPlaceholderIndex];
+                }, 300);
             }
 
             // Start rotating after chat input appears, then every 3 seconds
@@ -736,17 +753,10 @@
             const chatInputField = document.getElementById('chat-input-field');
             const cursor = document.getElementById('cursor');
 
-            // Show/hide cursor based on input focus and value
+            // Show cursor always, hide only when user types
             if (chatInputField && cursor) {
-                chatInputField.addEventListener('focus', () => {
-                    if (chatInputField.value === '') {
-                        cursor.style.display = 'inline-block';
-                    }
-                });
-
-                chatInputField.addEventListener('blur', () => {
-                    cursor.style.display = 'none';
-                });
+                // Show cursor by default
+                cursor.style.display = 'inline-block';
 
                 chatInputField.addEventListener('input', () => {
                     if (chatInputField.value === '') {
