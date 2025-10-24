@@ -543,9 +543,10 @@
                         }
                     }
                 })
-                    // Phase 0: Move globe up and scale to normal size quickly (0-10%)
+                    // Phase 0: Move globe up, scale to normal size, and move text down (0-10%)
                     .to(globe.position, { y: 0, ease: "power2.out", duration: 0.1 }, 0)
                     .to(globe.scale, { x: 1, y: 1, z: 1, ease: "power2.out", duration: 0.1 }, 0)
+                    .to("#globe-text", { top: "40%", ease: "power2.out", duration: 0.1 }, 0)
                     // Phase 1: Spin globe and fade out text (15-30%)
                     .to(globe.rotation, { y: "+=3.14", ease: "none" }, 0)
                     .to(camera.position, { z: 180, ease: "power1.inOut" }, 0)
