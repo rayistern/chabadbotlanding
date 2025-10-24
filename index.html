@@ -113,26 +113,30 @@
                         together.</p>
                 </div>
                 <div id="chat-input"
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl px-6 z-20 opacity-0"
-                    style="pointer-events: none;">
-                    <div class="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700 p-6">
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl px-6 z-20 opacity-0">
+                    <form id="chat-form"
+                        class="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700 p-6">
                         <div class="flex items-center gap-4">
                             <input id="chat-input-field" type="text"
                                 placeholder="Ask me anything about Torah, Halacha, or Jewish learning..."
                                 class="flex-1 bg-gray-900/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl px-6 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                            <button
+                            <button type="submit"
                                 class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-colors">
                                 Ask
                             </button>
                         </div>
                         <div class="mt-4 flex gap-2 flex-wrap">
-                            <span class="text-xs bg-gray-700/50 text-gray-300 px-3 py-1 rounded-full">Torah Study</span>
-                            <span class="text-xs bg-gray-700/50 text-gray-300 px-3 py-1 rounded-full">Halacha
-                                Questions</span>
-                            <span class="text-xs bg-gray-700/50 text-gray-300 px-3 py-1 rounded-full">Jewish
-                                History</span>
+                            <button type="button"
+                                class="text-xs bg-gray-700/50 text-gray-300 px-3 py-1 rounded-full hover:bg-gray-600/50 transition-colors suggestion-chip">Torah
+                                Study</button>
+                            <button type="button"
+                                class="text-xs bg-gray-700/50 text-gray-300 px-3 py-1 rounded-full hover:bg-gray-600/50 transition-colors suggestion-chip">Halacha
+                                Questions</button>
+                            <button type="button"
+                                class="text-xs bg-gray-700/50 text-gray-300 px-3 py-1 rounded-full hover:bg-gray-600/50 transition-colors suggestion-chip">Jewish
+                                History</button>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </section>
 
@@ -524,6 +528,32 @@
             setTimeout(() => {
                 setInterval(rotatePlaceholder, 3000);
             }, 2000);
+
+            // Handle chat form submission
+            const chatForm = document.getElementById('chat-form');
+            const chatInputField = document.getElementById('chat-input-field');
+
+            if (chatForm) {
+                chatForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    // Redirect to login page regardless of input
+                    window.location.href = '/login.html'; // Change this to your actual login page URL
+                });
+            }
+
+            // Handle suggestion chip clicks
+            const suggestionChips = document.querySelectorAll('.suggestion-chip');
+            suggestionChips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    // Fill input with suggestion text and redirect to login
+                    if (chatInputField) {
+                        chatInputField.value = chip.textContent;
+                    }
+                    setTimeout(() => {
+                        window.location.href = '/login.html'; // Change this to your actual login page URL
+                    }, 300);
+                });
+            });
         });
     </script>
 
