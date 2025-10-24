@@ -214,9 +214,12 @@
                         class="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700 p-6">
                         <div class="flex items-center gap-4 relative">
                             <div class="flex-1 relative">
-                                <input id="chat-input-field" type="text"
-                                    placeholder="How can I help you with your shlichus today?"
+                                <input id="chat-input-field" type="text" placeholder=""
                                     class="w-full bg-gray-900/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl px-6 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-white" />
+                                <div id="custom-placeholder"
+                                    class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 text-lg pointer-events-none transition-opacity duration-400">
+                                    How can I help you with your shlichus today?
+                                </div>
                                 <span id="cursor" class="cursor-blink absolute"
                                     style="left: 24px; top: 50%; transform: translateY(-50%); display: none;"></span>
                             </div>
@@ -668,36 +671,40 @@
 
             let currentPlaceholderIndex = 0;
             const inputField = document.getElementById('chat-input-field');
+            const customPlaceholder = document.getElementById('custom-placeholder');
 
             let placeholderInterval;
             let isAnimating = false;
-            let userInteracting = false;
 
             function rotatePlaceholder() {
-                if (!inputField || isAnimating || userInteracting) return;
+                if (!inputField || !customPlaceholder || isAnimating) return;
 
                 // Don't rotate if user has typed something or input is focused
                 if (inputField.value !== '' || document.activeElement === inputField) return;
 
                 isAnimating = true;
 
-                // Add a class to fade out placeholder
-                inputField.classList.add('placeholder-fade-out');
+                // Fade out the custom placeholder element (not the input!)
+                gsap.to(customPlaceholder, {
+                    opacity: 0,
+                    duration: 0.4,
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        // Change text while invisible
+                        currentPlaceholderIndex = (currentPlaceholderIndex + 1) % placeholders.length;
+                        customPlaceholder.textContent = placeholders[currentPlaceholderIndex];
 
-                setTimeout(() => {
-                    // Change text while faded out
-                    currentPlaceholderIndex = (currentPlaceholderIndex + 1) % placeholders.length;
-                    inputField.placeholder = placeholders[currentPlaceholderIndex];
-
-                    // Remove fade out, add fade in
-                    inputField.classList.remove('placeholder-fade-out');
-                    inputField.classList.add('placeholder-fade-in');
-
-                    setTimeout(() => {
-                        inputField.classList.remove('placeholder-fade-in');
-                        isAnimating = false;
-                    }, 400);
-                }, 400);
+                        // Fade in
+                        gsap.to(customPlaceholder, {
+                            opacity: 1,
+                            duration: 0.4,
+                            ease: "power2.inOut",
+                            onComplete: () => {
+                                isAnimating = false;
+                            }
+                        });
+                    }
+                });
             }
 
             // Start rotating after chat input appears, then every 3 seconds
@@ -713,22 +720,27 @@
             // Show cursor always, hide only when user types
             const sendButton = document.getElementById('send-button');
 
-            if (chatInputField && cursor) {
+            if (chatInputField && cursor && customPlaceholder) {
                 // Show cursor by default
                 cursor.style.display = 'inline-block';
 
-                // Prevent rotation when user is interacting with input
+                // Hide custom placeholder when user focuses or types
                 chatInputField.addEventListener('focus', () => {
-                    userInteracting = true;
+                    if (chatInputField.value === '') {
+                        customPlaceholder.style.opacity = '0.5';
+                    }
                 });
 
                 chatInputField.addEventListener('blur', () => {
-                    userInteracting = false;
+                    if (chatInputField.value === '') {
+                        customPlaceholder.style.opacity = '1';
+                    }
                 });
 
                 chatInputField.addEventListener('input', () => {
                     if (chatInputField.value === '') {
                         cursor.style.display = 'inline-block';
+                        customPlaceholder.style.display = 'block';
                         // Resume placeholder rotation when input is cleared
                         if (!placeholderInterval) {
                             placeholderInterval = setInterval(rotatePlaceholder, 3000);
@@ -741,6 +753,7 @@
                         }
                     } else {
                         cursor.style.display = 'none';
+                        customPlaceholder.style.display = 'none';
                         // Stop placeholder rotation when user types
                         if (placeholderInterval) {
                             clearInterval(placeholderInterval);
