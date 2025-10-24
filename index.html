@@ -8,7 +8,7 @@
     <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Dosis:wght@400;500;600;700&display=swap"
         rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -17,7 +17,7 @@
     <script src="https://unpkg.com/three-globe@2.25.4/dist/three-globe.min.js"></script>
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Dosis', sans-serif;
             overflow-x: hidden;
             background: #000000;
             color: #ffffff;
@@ -33,6 +33,10 @@
 
         .text-glow {
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Kanit', sans-serif;
         }
     </style>
 </head>
@@ -85,10 +89,10 @@
                     </li>
                     <li class="mt-auto">
                         <div class="space-y-2">
-                            <button
+                            <a href="https://nextjs-ai-chatbot-omega-murex-86.vercel.app/"
                                 class="w-full inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium bg-gray-800 text-white hover:bg-gray-700">
                                 Sign In
-                            </button>
+                            </a>
                             <!-- <button
                                 class="w-full inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium border border-gray-700 text-gray-300 hover:bg-gray-800">
                                 Settings
@@ -144,7 +148,7 @@
 
             <div class="relative z-30">
                 <!-- Features Section -->
-                <div id="features" class="bg-gray-800 py-24 sm:py-32">
+                <div id="features" class="py-24 sm:py-32">
                     <div class="mx-auto max-w-7xl px-6 lg:px-8">
                         <div class="mx-auto max-w-2xl lg:text-center">
                             <h2 class="text-base font-semibold leading-7 text-gray-300">Features</h2>
@@ -159,7 +163,7 @@
                         <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
                             <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
                                 <div class="flex flex-row gap-4">
-                                    <div class="flex-shrink-0 rounded-lg overflow-hidden w-24 h-24">
+                                    <div class="flex-shrink-0 rounded-lg overflow-hidden w-32 h-32">
                                         <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=200&h=200&fit=crop"
                                             alt="Torah Study" class="w-full h-full object-cover">
                                     </div>
@@ -174,7 +178,7 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-row gap-4">
-                                    <div class="flex-shrink-0 rounded-lg overflow-hidden w-24 h-24">
+                                    <div class="flex-shrink-0 rounded-lg overflow-hidden w-32 h-32">
                                         <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=200&h=200&fit=crop"
                                             alt="Personalized Learning" class="w-full h-full object-cover">
                                     </div>
@@ -188,7 +192,7 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-row gap-4">
-                                    <div class="flex-shrink-0 rounded-lg overflow-hidden w-24 h-24">
+                                    <div class="flex-shrink-0 rounded-lg overflow-hidden w-32 h-32">
                                         <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=200&h=200&fit=crop"
                                             alt="Multi-Language" class="w-full h-full object-cover">
                                     </div>
@@ -203,7 +207,7 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-row gap-4">
-                                    <div class="flex-shrink-0 rounded-lg overflow-hidden w-24 h-24">
+                                    <div class="flex-shrink-0 rounded-lg overflow-hidden w-32 h-32">
                                         <img src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?w=200&h=200&fit=crop"
                                             alt="Halachic Guidance" class="w-full h-full object-cover">
                                     </div>
@@ -216,7 +220,7 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-row gap-4">
-                                    <div class="flex-shrink-0 rounded-lg overflow-hidden w-24 h-24">
+                                    <div class="flex-shrink-0 rounded-lg overflow-hidden w-32 h-32">
                                         <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=200&h=200&fit=crop"
                                             alt="Community" class="w-full h-full object-cover">
                                     </div>
@@ -229,7 +233,7 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-row gap-4">
-                                    <div class="flex-shrink-0 rounded-lg overflow-hidden w-24 h-24">
+                                    <div class="flex-shrink-0 rounded-lg overflow-hidden w-32 h-32">
                                         <img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=200&h=200&fit=crop"
                                             alt="Instant Answers" class="w-full h-full object-cover">
                                     </div>
@@ -264,7 +268,7 @@
                             <!-- Article 1 -->
                             <article class="flex flex-col items-start">
                                 <div class="relative w-full">
-                                    <img src="public/1.png" alt="Article"
+                                    <img src="/1.png" alt="Article"
                                         class="aspect-square w-full rounded-lg bg-gray-800 object-cover" />
                                 </div>
                                 <div class="flex items-center gap-x-4 text-xs mt-6">
@@ -290,7 +294,7 @@
                             <!-- Article 2 -->
                             <article class="flex flex-col items-start">
                                 <div class="relative w-full">
-                                    <img src="public/2.png" alt="Article"
+                                    <img src="/2.png" alt="Article"
                                         class="aspect-square w-full rounded-lg bg-gray-800 object-cover" />
                                 </div>
                                 <div class="flex items-center gap-x-4 text-xs mt-6">
@@ -316,7 +320,7 @@
                             <!-- Article 3 -->
                             <article class="flex flex-col items-start">
                                 <div class="relative w-full">
-                                    <img src="public/3.png" alt="Article"
+                                    <img src="/3.png" alt="Article"
                                         class="aspect-square w-full rounded-lg bg-gray-800 object-cover" />
                                 </div>
                                 <div class="flex items-center gap-x-4 text-xs mt-6">
@@ -592,8 +596,8 @@
             if (chatForm) {
                 chatForm.addEventListener('submit', (e) => {
                     e.preventDefault();
-                    // Redirect to login page regardless of input
-                    window.location.href = '/login.html'; // Change this to your actual login page URL
+                    // Redirect to chatbot
+                    window.location.href = 'https://nextjs-ai-chatbot-omega-murex-86.vercel.app/';
                 });
             }
 
@@ -601,12 +605,12 @@
             const suggestionChips = document.querySelectorAll('.suggestion-chip');
             suggestionChips.forEach(chip => {
                 chip.addEventListener('click', () => {
-                    // Fill input with suggestion text and redirect to login
+                    // Fill input with suggestion text and redirect to chatbot
                     if (chatInputField) {
                         chatInputField.value = chip.textContent;
                     }
                     setTimeout(() => {
-                        window.location.href = '/login.html'; // Change this to your actual login page URL
+                        window.location.href = 'https://nextjs-ai-chatbot-omega-murex-86.vercel.app/';
                     }, 300);
                 });
             });
