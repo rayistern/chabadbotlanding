@@ -400,7 +400,7 @@
                 pointLight2.position.set(-5, -3, -5);
                 scene.add(pointLight2);
 
-                camera.position.z = globeConfig.cameraDistance;
+                camera.position.z = 200; // Start at fixed position
 
                 const starGeometry = new THREE.BufferGeometry();
                 const starMaterial = new THREE.PointsMaterial({ color: globeConfig.starColor, size: globeConfig.starSize });
@@ -458,7 +458,7 @@
                     }
                 })
                     .to(globe.rotation, { y: "+=6.28", ease: "none" }, 0) // Spin 360 degrees (2*PI radians)
-                    .to(camera.position, { z: 150, ease: "power1.inOut" }, 0)
+                    .to(camera.position, { z: 180, ease: "power1.inOut" }, 0) // Zoom in slightly
                     .to("#globe-section .text-glow", { opacity: 0, scale: 0.5, ease: "power1.in" }, ">-0.5")
                     .to("#globe-section p", { opacity: 0, scale: 0.5, ease: "power1.in" }, "<");
 
