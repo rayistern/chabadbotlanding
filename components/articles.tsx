@@ -5,27 +5,27 @@ import Image from "next/image"
 
 const articles = [
   {
-    title: "The Future of Torah Study in the Digital Age",
-    description: "Exploring how AI technology can enhance traditional Jewish learning while preserving the sacred nature of Torah study.",
-    date: "Dec 15, 2023",
+    title: "Emergent Unity",
+    description: "From decentralization to emergent unity. From quantity to quality. From concern to empowerment. From redundancy to infinity.",
+    date: "Oct 24, 2025",
     readTime: "5 min read",
-    category: "Technology",
+    category: "Vision",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=center"
   },
   {
-    title: "Understanding Halacha Through AI: A Modern Approach",
-    description: "How artificial intelligence can help clarify complex Jewish law questions while maintaining respect for rabbinic authority.",
-    date: "Dec 12, 2023",
+    title: "Infinite Perspective",
+    description: "Ethics in an age of infinite perspective. The unique position we occupy at this pivotal moment in history.",
+    date: "Oct 20, 2025",
     readTime: "7 min read",
-    category: "Halacha",
-    image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=400&fit=crop&crop=center"
+    category: "Philosophy",
+    image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=400&fit=crop&center"
   },
   {
-    title: "Building Bridges: AI and Jewish Community",
-    description: "The role of technology in strengthening Jewish communities and making learning accessible to everyone.",
-    date: "Dec 10, 2023",
+    title: "Rewrite the Future",
+    description: "3,000 years of knowledge + artificial wisdom. Bridging timeless Torah wisdom with cutting-edge artificial intelligence for a new era of learning.",
+    date: "Oct 15, 2025",
     readTime: "4 min read",
-    category: "Community",
+    category: "Torah & AI",
     image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400&h=400&fit=crop&crop=center"
   }
 ]
@@ -35,12 +35,12 @@ export default function Articles() {
     <div className="bg-gray-900 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-gray-300">Blog</h2>
+          <h2 className="text-base font-semibold leading-7 text-gray-300">Where We're Going</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Featured Articles
+            The Future is Being Written Now
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-300">
-            Insights and perspectives on the intersection of technology and Jewish learning.
+            As emergent AI entities demonstrate qualities beyond quantitative processing, we're witnessing a paradigm shift that validates Torah's holistic understanding of knowledge and reality.
           </p>
         </div>
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">

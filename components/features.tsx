@@ -2,33 +2,33 @@ import React from "react"
 
 const features = [
   {
-    title: "Torah Study Assistant",
-    description: "Get instant explanations and insights on Torah passages, Talmudic discussions, and Jewish law with our advanced AI.",
+    title: "Prompt Library",
+    description: "Domain-specific prompts tailored for Chabad shluchim. Accelerate your workflow with pre-built templates for common tasks.",
     image: "/1.png"
   },
   {
-    title: "Personalized Learning",
-    description: "Adaptive learning paths that adjust to your level and interests, making Jewish education more accessible and engaging.",
+    title: "Knowledge Base",
+    description: "Centralized access to resources, best practices, and institutional knowledge. Find what you need, when you need it.",
     image: "/2.png"
   },
   {
-    title: "Multi-Language Support",
-    description: "Access content in Hebrew, English, Yiddish, and more with seamless translation and cultural context.",
+    title: "Integrations",
+    description: "Seamlessly connect with your existing tools and workflows. Built for productivity, designed for collaboration.",
     image: "/3.png"
   },
   {
-    title: "Halachic Guidance",
-    description: "Get reliable guidance on Jewish law and customs with sources and explanations from trusted rabbinic authorities.",
+    title: "Torah Access",
+    description: "3,000 years of knowledge meets artificial wisdom. Explore Torah texts with AI-powered insights and context.",
     image: "/1.png"
   },
   {
-    title: "Community Features",
-    description: "Connect with fellow learners, share insights, and participate in study groups within our secure platform.",
+    title: "Collaboration Tools",
+    description: "Work together across continents. Share insights, coordinate efforts, and amplify your impact.",
     image: "/2.png"
   },
   {
-    title: "Instant Answers",
-    description: "Ask questions about Jewish texts, traditions, or practices and get comprehensive, well-sourced answers instantly.",
+    title: "AI-Powered Productivity",
+    description: "From concern to empowerment. From redundancy to infinity. Tools that understand your mission.",
     image: "/3.png"
   }
 ]
@@ -38,12 +38,12 @@ export default function Features() {
     <div className="bg-gray-800 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-gray-300">Features</h2>
+          <h2 className="text-base font-semibold leading-7 text-gray-300">The Acceleration</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Powerful Features for Jewish Learning
+            Humanity 2.0
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-300">
-            Discover how ChabadAI transforms traditional Jewish education with cutting-edge technology.
+            We're not just keeping up with AI acceleration—we're leading the conversation about what it means to be human when intelligence becomes infinite.
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">

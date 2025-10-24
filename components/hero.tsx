@@ -165,8 +165,8 @@ export default function Hero() {
         className="h-screen w-full sticky top-0 z-10"
       />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-white z-20 pointer-events-none">
-        <h2 className="text-4xl md:text-6xl font-black text-glow">Connecting Jewish Communities Worldwide</h2>
-        <p className="text-xl mt-4 max-w-2xl mx-auto">Our AI platform spans the globe, bringing Torah learning together.</p>
+        <h2 className="text-4xl md:text-6xl font-black text-glow">Move Fast and Save the World</h2>
+        <p className="text-xl mt-4 max-w-2xl mx-auto">The same place as the rest of the world. Just a little bit ahead.</p>
       </div>
     </section>
   )
