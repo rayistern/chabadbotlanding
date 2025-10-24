@@ -93,15 +93,7 @@
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.08);
         }
 
-        /* Mobile sidebar */
-        #mobile-sidebar {
-            transform: translateX(-100%);
-            transition: transform 0.3s ease-in-out;
-        }
 
-        #mobile-sidebar.open {
-            transform: translateX(0);
-        }
 
         /* Mobile: show chat input immediately */
         @media (max-width: 1023px) {
@@ -118,76 +110,12 @@
 
 <body class="bg-gray-900">
 
-    <!-- Mobile Menu Button -->
-    <button id="mobile-menu-btn"
-        class="lg:hidden fixed top-4 left-4 z-50 bg-gray-800 text-white p-3 rounded-lg hover:bg-gray-700 transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-            class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-        </svg>
-    </button>
-
     <!-- Top Right Sign In Button -->
     <div class="fixed top-4 right-4 z-50">
         <a href="https://nextjs-ai-chatbot-omega-murex-86.vercel.app/"
             class="inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium bg-gray-800 text-white hover:bg-gray-700 transition-colors">
             Sign In
         </a>
-    </div>
-
-    <!-- Mobile Sidebar -->
-    <div id="mobile-sidebar" class="lg:hidden fixed inset-y-0 left-0 z-40 w-72 bg-gray-900 border-r border-gray-800">
-        <div class="flex grow flex-col gap-y-5 overflow-y-auto px-6 pb-4 h-full">
-            <div class="flex h-16 shrink-0 items-center justify-between">
-                <span class="text-2xl font-bold text-white">ChabadAI</span>
-                <button id="close-sidebar-btn" class="text-gray-400 hover:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                        stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <nav class="flex flex-1 flex-col">
-                <ul role="list" class="flex flex-1 flex-col gap-y-7">
-                    <li>
-                        <ul role="list" class="-mx-2 space-y-1">
-                            <li><a href="#"
-                                    class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold bg-gray-800 text-white">Home</a>
-                            </li>
-                            <li><a href="#features"
-                                    class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-300 hover:text-white hover:bg-gray-800">Features</a>
-                            </li>
-                            <li><a href="#articles"
-                                    class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-300 hover:text-white hover:bg-gray-800">Blog</a>
-                            </li>
-                            <li><a href="#about"
-                                    class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-300 hover:text-white hover:bg-gray-800">About</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <div class="text-xs font-semibold leading-6 text-gray-400">Features</div>
-                        <ul role="list" class="-mx-2 mt-2 space-y-1">
-                            <li><a href="#"
-                                    class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 text-gray-300 hover:text-white hover:bg-gray-800">Torah
-                                    Study</a></li>
-                            <li><a href="#"
-                                    class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 text-gray-300 hover:text-white hover:bg-gray-800">AI
-                                    Learning</a></li>
-                            <li><a href="#"
-                                    class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 text-gray-300 hover:text-white hover:bg-gray-800">Multi-Language</a>
-                            </li>
-                            <li><a href="#"
-                                    class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 text-gray-300 hover:text-white hover:bg-gray-800">Halacha
-                                    Guide</a></li>
-                            <li><a href="#"
-                                    class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 text-gray-300 hover:text-white hover:bg-gray-800">Community</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </div>
     </div>
 
     <!-- Desktop Sidebar Navigation -->
@@ -706,10 +634,15 @@
             let currentPlaceholderIndex = 0;
             const inputField = document.getElementById('chat-input-field');
 
+            let placeholderInterval;
+
             function rotatePlaceholder() {
                 if (!inputField) return;
 
-                // Fade only the placeholder attribute, not the entire input
+                // Don't rotate if user has typed something
+                if (inputField.value !== '') return;
+
+                // Create overlay for current placeholder text
                 const tempSpan = document.createElement('span');
                 tempSpan.textContent = inputField.placeholder;
                 tempSpan.style.cssText = `
@@ -726,26 +659,52 @@
                 `;
                 inputField.parentElement.parentElement.appendChild(tempSpan);
 
-                // Fade out the temporary span
+                // Fade out current text completely first
                 gsap.to(tempSpan, {
                     opacity: 0,
-                    duration: 0.3,
+                    duration: 0.4,
                     ease: "power2.inOut",
                     onComplete: () => {
                         tempSpan.remove();
+
+                        // After fade out completes, change placeholder and fade in
+                        currentPlaceholderIndex = (currentPlaceholderIndex + 1) % placeholders.length;
+                        inputField.placeholder = placeholders[currentPlaceholderIndex];
+
+                        // Create new overlay for fade in
+                        const newSpan = document.createElement('span');
+                        newSpan.textContent = inputField.placeholder;
+                        newSpan.style.cssText = `
+                            position: absolute;
+                            left: ${inputField.offsetLeft + 24}px;
+                            top: ${inputField.offsetTop}px;
+                            height: ${inputField.offsetHeight}px;
+                            display: flex;
+                            align-items: center;
+                            color: rgb(156, 163, 175);
+                            font-size: 1.125rem;
+                            pointer-events: none;
+                            z-index: 1;
+                            opacity: 0;
+                        `;
+                        inputField.parentElement.parentElement.appendChild(newSpan);
+
+                        // Fade in new text
+                        gsap.to(newSpan, {
+                            opacity: 1,
+                            duration: 0.4,
+                            ease: "power2.inOut",
+                            onComplete: () => {
+                                newSpan.remove();
+                            }
+                        });
                     }
                 });
-
-                // Change the actual placeholder (hidden during transition)
-                setTimeout(() => {
-                    currentPlaceholderIndex = (currentPlaceholderIndex + 1) % placeholders.length;
-                    inputField.placeholder = placeholders[currentPlaceholderIndex];
-                }, 300);
             }
 
-            // Start rotating after chat input appears, then every 3 seconds
+            // Start rotating after chat input appears, then every 4 seconds (longer to account for fade out + fade in)
             setTimeout(() => {
-                setInterval(rotatePlaceholder, 3000);
+                placeholderInterval = setInterval(rotatePlaceholder, 4000);
             }, 2000);
 
             // Handle chat form submission
@@ -761,8 +720,17 @@
                 chatInputField.addEventListener('input', () => {
                     if (chatInputField.value === '') {
                         cursor.style.display = 'inline-block';
+                        // Resume placeholder rotation when input is cleared
+                        if (!placeholderInterval) {
+                            placeholderInterval = setInterval(rotatePlaceholder, 4000);
+                        }
                     } else {
                         cursor.style.display = 'none';
+                        // Stop placeholder rotation when user types
+                        if (placeholderInterval) {
+                            clearInterval(placeholderInterval);
+                            placeholderInterval = null;
+                        }
                     }
                 });
             }
@@ -775,33 +743,8 @@
                 });
             }
 
-            // Mobile sidebar toggle
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileSidebar = document.getElementById('mobile-sidebar');
-            const closeSidebarBtn = document.getElementById('close-sidebar-btn');
-
-            if (mobileMenuBtn && mobileSidebar) {
-                mobileMenuBtn.addEventListener('click', () => {
-                    mobileSidebar.classList.add('open');
-                });
-            }
-
-            if (closeSidebarBtn && mobileSidebar) {
-                closeSidebarBtn.addEventListener('click', () => {
-                    mobileSidebar.classList.remove('open');
-                });
-            }
-
-            // Close sidebar when clicking outside
-            document.addEventListener('click', (e) => {
-                if (mobileSidebar && mobileSidebar.classList.contains('open')) {
-                    if (!mobileSidebar.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                        mobileSidebar.classList.remove('open');
-                    }
-                }
-            });
-
         });
+
     </script>
 
 </body>
