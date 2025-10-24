@@ -29,7 +29,8 @@
             width: 100%;
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 1;
+            pointer-events: none;
         }
 
         .text-glow {
@@ -61,8 +62,9 @@
             transform: scale(1.1);
         }
 
-        /* Purple text cursor for input field */
-        #chat-input-field {
+        /* Purple text cursor for input fields */
+        #chat-input-field-desktop,
+        #chat-input-field-mobile {
             caret-color: rgba(157, 78, 221, 0.9);
         }
 
@@ -182,7 +184,7 @@
                 </div>
                 <!-- Desktop Chat Input -->
                 <div id="chat-input"
-                    class="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl px-6 z-20 opacity-0">
+                    class="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl px-6 z-50 opacity-0">
                     <form id="chat-form-desktop"
                         class="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700 p-8">
                         <div class="flex items-center gap-4 relative">
@@ -209,7 +211,7 @@
 
                 <!-- Mobile Chat Input (Simple, no animations) -->
                 <div id="chat-input-mobile"
-                    class="lg:hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl px-6 z-20">
+                    class="lg:hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl px-6 z-50">
                     <form id="chat-form-mobile"
                         class="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700 p-8">
                         <div class="flex items-center gap-4">
