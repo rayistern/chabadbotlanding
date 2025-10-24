@@ -503,7 +503,7 @@
                     scrollTrigger: {
                         trigger: "#globe-section",
                         start: "top top",
-                        end: "+=4500",
+                        end: "+=3500",
                         scrub: 1,
                         pin: true,
                         pinSpacing: true,
@@ -513,18 +513,18 @@
                         }
                     }
                 })
-                    // Phase 1: Spin globe and fade out text (0-20%)
-                    .to(globe.rotation, { y: "+=3.14", ease: "none" }, 0)
+                    // Phase 1: Spin globe and fade out text quickly (0-15%)
+                    .to(globe.rotation, { y: "+=2", ease: "none" }, 0)
                     .to(camera.position, { z: 180, ease: "power1.inOut" }, 0)
-                    .to("#globe-text", { opacity: 0, scale: 0.8, ease: "power1.in" }, 0.12)
-                    // Phase 2: Fade in chat input quickly (20-35%)
-                    .to("#chat-input", { opacity: 1, scale: 1, ease: "power1.out", duration: 0.15 }, 0.25)
-                    .to(globe.rotation, { y: "+=3.14", ease: "none" }, 0.2)
-                    // Phase 3: Globe fades slowly (35-70%)
-                    .to("#globe-container", { opacity: 0, ease: "power2.inOut", duration: 0.35 }, 0.4)
-                    .to(camera.position, { z: 150, ease: "power1.inOut" }, 0.4)
-                    // Phase 4: Chat stays visible alone (75-85%) - brief pause before continuing
-                    .to("#chat-input", { opacity: 1 }, 0.75);
+                    .to("#globe-text", { opacity: 0, scale: 0.8, ease: "power1.in", duration: 0.1 }, 0)
+                    // Phase 2: Fade in chat input quickly (15-25%)
+                    .to("#chat-input", { opacity: 1, scale: 1, ease: "power1.out", duration: 0.08 }, 0.15)
+                    .to(globe.rotation, { y: "+=2", ease: "none" }, 0.15)
+                    // Phase 3: Globe fades slowly while chat is visible (25-70%)
+                    .to("#globe-container", { opacity: 0, ease: "power2.inOut", duration: 0.45 }, 0.25)
+                    .to(camera.position, { z: 150, ease: "power1.inOut" }, 0.25)
+                    // Phase 4: Chat stays visible alone briefly (70-80%)
+                    .to("#chat-input", { opacity: 1, duration: 0.1 }, 0.7);
 
                 window.addEventListener('resize', () => {
                     camera.aspect = globeContainer.offsetWidth / globeContainer.offsetHeight;
