@@ -117,7 +117,8 @@
                     style="pointer-events: none;">
                     <div class="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700 p-6">
                         <div class="flex items-center gap-4">
-                            <input type="text" placeholder="Ask me anything about Torah, Halacha, or Jewish learning..."
+                            <input id="chat-input-field" type="text"
+                                placeholder="Ask me anything about Torah, Halacha, or Jewish learning..."
                                 class="flex-1 bg-gray-900/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl px-6 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                             <button
                                 class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-colors">
@@ -484,7 +485,47 @@
                     renderer.setSize(globeContainer.offsetWidth, globeContainer.offsetHeight);
                 });
             }
-        });
+        }
+
+        // Rotating placeholder text
+        const placeholders = [
+            "What is the meaning of this week's Torah portion?",
+            "Explain the laws of Shabbat candle lighting...",
+            "Tell me about the Rebbe's teachings on education",
+            "How do I prepare for Passover?",
+            "What are the daily prayer times today?",
+            "Explain the concept of Tikkun Olam",
+            "What is the significance of the mezuzah?",
+            "How can I study Tanya effectively?",
+            "What are the laws of keeping kosher?",
+            "Tell me about Jewish holidays this month"
+        ];
+
+        let currentPlaceholderIndex = 0;
+        const inputField = document.getElementById('chat-input-field');
+
+        function rotatePlaceholder() {
+            if (!inputField) return;
+
+            // Fade out
+            inputField.style.transition = 'opacity 0.5s ease-in-out';
+            inputField.style.opacity = '0.3';
+
+            setTimeout(() => {
+                // Change text
+                currentPlaceholderIndex = (currentPlaceholderIndex + 1) % placeholders.length;
+                inputField.placeholder = placeholders[currentPlaceholderIndex];
+
+                // Fade in
+                inputField.style.opacity = '1';
+            }, 500);
+        }
+
+        // Start rotating after chat input appears, then every 3 seconds
+        setTimeout(() => {
+            setInterval(rotatePlaceholder, 3000);
+        }, 2000);
+    });
     </script>
 
 </body>
