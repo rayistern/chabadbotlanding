@@ -211,18 +211,18 @@
 
                 <!-- Mobile Chat Input (Simple, no animations) -->
                 <div id="chat-input-mobile"
-                    class="lg:hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl px-6 z-50">
+                    class="lg:hidden absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl px-6 z-50">
                     <form id="chat-form-mobile"
-                        class="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700 p-8">
-                        <div class="flex items-center gap-4">
+                        class="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700 p-6">
+                        <div class="flex items-center gap-3">
                             <input id="chat-input-field-mobile" type="text"
                                 placeholder="How can I help you with your shlichus today?"
-                                class="flex-1 bg-gray-900/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl px-6 py-6 text-lg focus:outline-none focus:ring-2 focus:ring-gray-500" />
+                                class="flex-1 bg-gray-900/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl px-5 py-4 text-base focus:outline-none focus:ring-2 focus:ring-gray-500" />
                             <button type="submit" id="send-button-mobile"
-                                class="bg-gray-700 text-gray-500 font-semibold p-4 rounded-xl transition-all flex items-center justify-center cursor-not-allowed"
+                                class="flex-shrink-0 bg-gray-700 text-gray-500 font-semibold p-3 rounded-xl transition-all flex items-center justify-center cursor-not-allowed"
                                 disabled>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                    stroke="currentColor" class="w-6 h-6">
+                                    stroke="currentColor" class="w-5 h-5">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
                                 </svg>
@@ -352,32 +352,29 @@
 
             <!-- Email Capture Section -->
             <div class="bg-gray-900 py-16 sm:py-20">
-                <div class="mx-auto max-w-3xl px-6 lg:px-8">
+                <div class="mx-auto max-w-6xl px-6 lg:px-8">
                     <div class="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700 p-8">
                         <div id="email-form-content">
                             <h3 class="text-2xl font-bold text-white text-center mb-6">Join the Waitlist</h3>
-                            <!-- <p class="text-gray-300 text-center mb-6">Be the first to experience AI-powered Torah learning</p> -->
                             <form id="ml-form" class="ml-block-form"
                                 action="https://assets.mailerlite.com/jsonp/905221/forms/118265804464588098/subscribe"
                                 method="post" target="_blank">
-                                <div class="ml-form-formContent">
-                                    <div class="ml-form-fieldRow ml-last-item">
-                                        <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
-                                            <input aria-label="email" aria-required="true" type="email"
-                                                class="w-full bg-gray-900/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl px-6 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-gray-500 mb-4"
-                                                name="fields[email]" placeholder="shliach@chabadofmytown.com"
-                                                autocomplete="email" required />
-                                        </div>
-                                    </div>
+                                <div class="flex items-center gap-4">
+                                    <input aria-label="email" aria-required="true" type="email"
+                                        class="flex-1 bg-gray-900/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl px-6 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+                                        name="fields[email]" placeholder="shliach@chabadofmytown.com"
+                                        autocomplete="email" required />
+                                    <button type="submit"
+                                        class="flex-shrink-0 bg-gray-700 hover:bg-gray-600 text-white font-semibold p-4 rounded-xl transition-all flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                            stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+                                        </svg>
+                                    </button>
                                 </div>
                                 <input type="hidden" name="ml-submit" value="1" />
                                 <input type="hidden" name="anticsrf" value="true" />
-                                <div class="ml-form-embedSubmit flex justify-center">
-                                    <button type="submit"
-                                        class="inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium bg-gray-800 text-white hover:bg-gray-700 transition-colors">
-                                        Join the Waitlist
-                                    </button>
-                                </div>
                             </form>
                         </div>
                         <div id="email-success" class="hidden text-center">
