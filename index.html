@@ -106,25 +106,23 @@
             <!-- Globe Section -->
             <section class="relative" id="globe-section">
                 <div id="globe-container"></div>
-                <div id="globe-text"
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl px-6 z-20 pointer-events-none">
-                    <div class="px-6 py-4">
-                        <p class="text-lg text-gray-400">How can I help your shlichus today?</p>
-                    </div>
-                </div>
                 <div id="chat-input"
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl px-6 z-20 opacity-0">
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl px-6 z-20">
                     <form id="chat-form"
-                        class="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700 p-6">
+                        class="rounded-2xl p-6" style="background: transparent; border: 1px solid transparent; box-shadow: none;">
                         <div class="flex items-center gap-4">
-                            <input id="chat-input-field" type="text" placeholder="How can I help your shlichus today?"
-                                class="flex-1 bg-gray-900/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl px-6 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                            <button type="submit"
-                                class="bg-gray-700 hover:bg-gray-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors">
+                            <div class="flex-1 relative">
+                                <input id="chat-input-field" type="text" placeholder="How can I help your shlichus today?"
+                                    class="w-full text-white placeholder-gray-400 px-6 py-4 text-lg focus:outline-none"
+                                    style="background: transparent; border: 1px solid transparent; border-radius: 0.75rem;" />
+                                <div id="chat-input-bg" class="absolute inset-0 bg-gray-900/50 border border-gray-600 rounded-xl opacity-0 pointer-events-none"></div>
+                            </div>
+                            <button id="chat-button" type="submit"
+                                class="bg-gray-700 hover:bg-gray-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors opacity-0">
                                 Ask
                             </button>
                         </div>
-                        <div class="mt-4 flex gap-2 flex-wrap">
+                        <div id="chat-suggestions" class="mt-4 flex gap-2 flex-wrap opacity-0">
                             <button type="button"
                                 class="text-xs bg-gray-700/50 text-gray-300 px-3 py-1 rounded-full hover:bg-gray-600/50 transition-colors suggestion-chip">Torah
                                 Study</button>
@@ -511,18 +509,18 @@
                         }
                     }
                 })
-                    // Phase 1: Spin globe and fade out text quickly (0-15%)
+                    // Phase 1: Spin globe (0-15%)
                     .to(globe.rotation, { y: "+=2", ease: "none" }, 0)
                     .to(camera.position, { z: 180, ease: "power1.inOut" }, 0)
-                    .to("#globe-text", { opacity: 0, scale: 0.8, ease: "power1.in", duration: 0.1 }, 0)
-                    // Phase 2: Fade in chat input quickly (15-25%)
-                    .to("#chat-input", { opacity: 1, scale: 1, ease: "power1.out", duration: 0.08 }, 0.15)
+                    // Phase 2: Fade in chat box elements around the text (15-25%)
+                    .to("#chat-form", { background: "rgba(31, 41, 55, 0.9)", borderColor: "rgba(55, 65, 81, 1)", boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)", ease: "power1.out", duration: 0.08 }, 0.15)
+                    .to("#chat-input-bg", { opacity: 1, ease: "power1.out", duration: 0.08 }, 0.15)
+                    .to("#chat-button", { opacity: 1, ease: "power1.out", duration: 0.08 }, 0.15)
+                    .to("#chat-suggestions", { opacity: 1, ease: "power1.out", duration: 0.08 }, 0.17)
                     .to(globe.rotation, { y: "+=2", ease: "none" }, 0.15)
                     // Phase 3: Globe fades slowly while chat is visible (25-70%)
                     .to("#globe-container", { opacity: 0, ease: "power2.inOut", duration: 0.45 }, 0.25)
-                    .to(camera.position, { z: 150, ease: "power1.inOut" }, 0.25)
-                    // Phase 4: Chat stays visible alone briefly (70-80%)
-                    .to("#chat-input", { opacity: 1, duration: 0.1 }, 0.7);
+                    .to(camera.position, { z: 150, ease: "power1.inOut" }, 0.25);
 
                 window.addEventListener('resize', () => {
                     camera.aspect = globeContainer.offsetWidth / globeContainer.offsetHeight;
