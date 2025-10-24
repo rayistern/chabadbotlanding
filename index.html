@@ -106,11 +106,32 @@
             <!-- Globe Section -->
             <section class="relative" id="globe-section">
                 <div id="globe-container"></div>
-                <div
+                <div id="globe-text"
                     class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-white z-20 pointer-events-none">
                     <h2 class="text-4xl md:text-6xl font-black text-glow">Connecting Jewish Communities Worldwide</h2>
                     <p class="text-xl mt-4 max-w-2xl mx-auto">Our AI platform spans the globe, bringing Torah learning
                         together.</p>
+                </div>
+                <div id="chat-input"
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl px-6 z-20 opacity-0"
+                    style="pointer-events: none;">
+                    <div class="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700 p-6">
+                        <div class="flex items-center gap-4">
+                            <input type="text" placeholder="Ask me anything about Torah, Halacha, or Jewish learning..."
+                                class="flex-1 bg-gray-900/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl px-6 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                            <button
+                                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-colors">
+                                Ask
+                            </button>
+                        </div>
+                        <div class="mt-4 flex gap-2 flex-wrap">
+                            <span class="text-xs bg-gray-700/50 text-gray-300 px-3 py-1 rounded-full">Torah Study</span>
+                            <span class="text-xs bg-gray-700/50 text-gray-300 px-3 py-1 rounded-full">Halacha
+                                Questions</span>
+                            <span class="text-xs bg-gray-700/50 text-gray-300 px-3 py-1 rounded-full">Jewish
+                                History</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -402,18 +423,7 @@
 
                 camera.position.z = globeConfig.cameraDistance;
 
-                const starGeometry = new THREE.BufferGeometry();
-                const starMaterial = new THREE.PointsMaterial({ color: globeConfig.starColor, size: globeConfig.starSize });
-                const starVertices = [];
-                for (let i = 0; i < globeConfig.starCount; i++) {
-                    const x = (Math.random() - 0.5) * 2000;
-                    const y = (Math.random() - 0.5) * 2000;
-                    const z = (Math.random() - 0.5) * 2000;
-                    if (x * x + y * y + z * z > 100 * 100) starVertices.push(x, y, z);
-                }
-                starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
-                const stars = new THREE.Points(starGeometry, starMaterial);
-                scene.add(stars);
+                // Stars removed for cleaner look
 
                 const chabadCenters = [
                     { lat: 40.7128, lng: -74.0060 },
@@ -448,7 +458,7 @@
                     scrollTrigger: {
                         trigger: "#globe-section",
                         start: "top top",
-                        end: "+=2000",
+                        end: "+=3000",
                         scrub: 1,
                         pin: true,
                         onUpdate: (self) => {
@@ -457,10 +467,16 @@
                         }
                     }
                 })
-                    .to(globe.rotation, { y: "+=6.28", ease: "none" }, 0) // Spin 360 degrees (2*PI radians)
-                    .to(camera.position, { z: 150, ease: "power1.inOut" }, 0)
-                    .to("#globe-section .text-glow", { opacity: 0, scale: 0.5, ease: "power1.in" }, ">-0.5")
-                    .to("#globe-section p", { opacity: 0, scale: 0.5, ease: "power1.in" }, "<");
+                    // Phase 1: Spin globe and fade out text (0-33%)
+                    .to(globe.rotation, { y: "+=3.14", ease: "none" }, 0)
+                    .to(camera.position, { z: 180, ease: "power1.inOut" }, 0)
+                    .to("#globe-text", { opacity: 0, scale: 0.8, ease: "power1.in" }, 0.2)
+                    // Phase 2: Fade in chat input (33-66%)
+                    .to("#chat-input", { opacity: 1, scale: 1, ease: "power1.out", duration: 0.3 }, 0.4)
+                    .to(globe.rotation, { y: "+=3.14", ease: "none" }, 0.33)
+                    // Phase 3: Fade out globe, keep chat (66-100%)
+                    .to("#globe-container", { opacity: 0, ease: "power1.in" }, 0.7)
+                    .to(camera.position, { z: 150, ease: "power1.inOut" }, 0.7);
 
                 window.addEventListener('resize', () => {
                     camera.aspect = globeContainer.offsetWidth / globeContainer.offsetHeight;
