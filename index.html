@@ -666,7 +666,7 @@
                         start: "top top",
                         end: "+=4000",
                         scrub: 1,
-                        pin: true,
+                        pin: window.innerWidth >= 1024, // Only pin on desktop
                         onUpdate: (self) => {
                             // Speed up rotation as user scrolls
                             currentRotationSpeed = baseRotationSpeed * (1 + self.progress * 4);
@@ -826,8 +826,24 @@
             const chatInputFieldMobile = document.getElementById('chat-input-field-mobile');
             const sendButtonMobile = document.getElementById('send-button-mobile');
 
+            console.log('Mobile elements:', {
+                form: chatFormMobile,
+                input: chatInputFieldMobile,
+                button: sendButtonMobile
+            });
+
             if (chatInputFieldMobile && sendButtonMobile) {
+                // Debug all events
+                chatInputFieldMobile.addEventListener('focus', () => {
+                    console.log('Mobile input FOCUSED');
+                });
+
+                chatInputFieldMobile.addEventListener('blur', () => {
+                    console.log('Mobile input BLURRED');
+                });
+
                 chatInputFieldMobile.addEventListener('input', () => {
+                    console.log('Mobile input changed:', chatInputFieldMobile.value);
                     if (chatInputFieldMobile.value === '') {
                         sendButtonMobile.disabled = true;
                         sendButtonMobile.classList.remove('bg-white', 'text-black', 'hover:bg-gray-100', 'cursor-pointer');
@@ -838,6 +854,8 @@
                         sendButtonMobile.classList.add('bg-white', 'text-black', 'hover:bg-gray-100', 'cursor-pointer');
                     }
                 });
+            } else {
+                console.error('Mobile input elements not found!');
             }
 
             if (chatFormMobile) {
