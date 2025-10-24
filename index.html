@@ -278,9 +278,11 @@
                             <!-- Article 1 -->
                             <article class="flex flex-col items-start">
                                 <div class="relative w-full image-hover-container rounded-lg">
-                                    <a href="#">
-                                        <img src="/1.png" alt="Article"
+                                    <a href="#" class="relative block">
+                                        <img src="https://arrendy.ai/cb/images/candles1a.png" alt="Article"
                                             class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom" />
+                                        <img src="https://arrendy.ai/cb/images/candles1b.png" alt="Article Color"
+                                            class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500" />
                                     </a>
                                 </div>
                                 <div class="flex items-center gap-x-4 text-xs mt-6">
@@ -306,9 +308,11 @@
                             <!-- Article 2 -->
                             <article class="flex flex-col items-start">
                                 <div class="relative w-full image-hover-container rounded-lg">
-                                    <a href="#">
-                                        <img src="/2.png" alt="Article"
+                                    <a href="#" class="relative block">
+                                        <img src="https://arrendy.ai/cb/images/torah4a.png" alt="Article"
                                             class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom" />
+                                        <img src="https://arrendy.ai/cb/images/torah4b.png" alt="Article Color"
+                                            class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500" />
                                     </a>
                                 </div>
                                 <div class="flex items-center gap-x-4 text-xs mt-6">
@@ -334,9 +338,11 @@
                             <!-- Article 3 -->
                             <article class="flex flex-col items-start">
                                 <div class="relative w-full image-hover-container rounded-lg">
-                                    <a href="#">
-                                        <img src="/3.png" alt="Article"
+                                    <a href="#" class="relative block">
+                                        <img src="https://arrendy.ai/cb/images/mezuzah1c.png" alt="Article"
                                             class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom" />
+                                        <img src="https://arrendy.ai/cb/images/mezuzah1b.png" alt="Article Color"
+                                            class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500" />
                                     </a>
                                 </div>
                                 <div class="flex items-center gap-x-4 text-xs mt-6">
@@ -520,8 +526,9 @@
                 }
                 animate();
 
-                // Start globe lower
-                globe.position.y = -1.5;
+                // Start globe lower and smaller
+                globe.position.y = -2.5;
+                globe.scale.set(0.8, 0.8, 0.8);
                 
                 gsap.timeline({
                     scrollTrigger: {
@@ -536,8 +543,9 @@
                         }
                     }
                 })
-                    // Phase 0: Move globe up (0-15%)
+                    // Phase 0: Move globe up and scale to normal size (0-15%)
                     .to(globe.position, { y: 0, ease: "power2.inOut" }, 0)
+                    .to(globe.scale, { x: 1, y: 1, z: 1, ease: "power2.inOut" }, 0)
                     // Phase 1: Spin globe and fade out text (15-30%)
                     .to(globe.rotation, { y: "+=3.14", ease: "none" }, 0)
                     .to(camera.position, { z: 180, ease: "power1.inOut" }, 0)
