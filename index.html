@@ -686,9 +686,7 @@
                     .to(globe.rotation, { y: "+=3.14", ease: "none" }, 0.25)
                     // Phase 3: Globe fades out faster/earlier (35-55%), giving chat more time
                     .to("#globe-container", { opacity: 0, ease: "power2.inOut", duration: 0.2 }, 0.35)
-                    .to(camera.position, { z: 150, ease: "power1.inOut" }, 0.35)
-                    // Phase 4: Email capture fades in as globe fades out (40-60%)
-                    .to("#email-capture", { opacity: 1, scale: 1, ease: "power1.inOut", duration: 0.2 }, 0.4);
+                    .to(camera.position, { z: 150, ease: "power1.inOut" }, 0.35);
 
                 window.addEventListener('resize', () => {
                     camera.aspect = globeContainer.offsetWidth / globeContainer.offsetHeight;
