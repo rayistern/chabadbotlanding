@@ -93,6 +93,30 @@
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.08);
         }
 
+        /* Placeholder fade animations */
+        #chat-input-field::placeholder {
+            transition: opacity 0.5s ease-in-out;
+            opacity: 1;
+        }
+
+        #chat-input-field.placeholder-fade-out::placeholder {
+            opacity: 0;
+        }
+
+        #chat-input-field.placeholder-fade-in::placeholder {
+            opacity: 0;
+            animation: fadeInPlaceholder 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeInPlaceholder {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
 
 
         /* Mobile: show chat input immediately */
@@ -636,76 +660,38 @@
             const inputField = document.getElementById('chat-input-field');
 
             let placeholderInterval;
+            let isAnimating = false;
 
             function rotatePlaceholder() {
-                if (!inputField) return;
+                if (!inputField || isAnimating) return;
+                
+                // Don't rotate if user has typed something or input is focused
+                if (inputField.value !== '' || document.activeElement === inputField) return;
 
-                // Don't rotate if user has typed something
-                if (inputField.value !== '') return;
+                isAnimating = true;
 
-                // Create overlay for current placeholder text
-                const tempSpan = document.createElement('span');
-                tempSpan.textContent = inputField.placeholder;
-                tempSpan.style.cssText = `
-                    position: absolute;
-                    left: ${inputField.offsetLeft + 24}px;
-                    top: ${inputField.offsetTop}px;
-                    height: ${inputField.offsetHeight}px;
-                    display: flex;
-                    align-items: center;
-                    color: rgb(156, 163, 175);
-                    font-size: 1.125rem;
-                    pointer-events: none;
-                    z-index: 1;
-                `;
-                inputField.parentElement.parentElement.appendChild(tempSpan);
-
-                // Fade out current text completely first
-                gsap.to(tempSpan, {
-                    opacity: 0,
-                    duration: 0.4,
-                    ease: "power2.inOut",
-                    onComplete: () => {
-                        tempSpan.remove();
-
-                        // After fade out completes, change placeholder and fade in
-                        currentPlaceholderIndex = (currentPlaceholderIndex + 1) % placeholders.length;
-                        inputField.placeholder = placeholders[currentPlaceholderIndex];
-
-                        // Create new overlay for fade in
-                        const newSpan = document.createElement('span');
-                        newSpan.textContent = inputField.placeholder;
-                        newSpan.style.cssText = `
-                            position: absolute;
-                            left: ${inputField.offsetLeft + 24}px;
-                            top: ${inputField.offsetTop}px;
-                            height: ${inputField.offsetHeight}px;
-                            display: flex;
-                            align-items: center;
-                            color: rgb(156, 163, 175);
-                            font-size: 1.125rem;
-                            pointer-events: none;
-                            z-index: 1;
-                            opacity: 0;
-                        `;
-                        inputField.parentElement.parentElement.appendChild(newSpan);
-
-                        // Fade in new text
-                        gsap.to(newSpan, {
-                            opacity: 1,
-                            duration: 0.4,
-                            ease: "power2.inOut",
-                            onComplete: () => {
-                                newSpan.remove();
-                            }
-                        });
-                    }
-                });
+                // Add a class to fade out placeholder
+                inputField.classList.add('placeholder-fade-out');
+                
+                setTimeout(() => {
+                    // Change text while faded out
+                    currentPlaceholderIndex = (currentPlaceholderIndex + 1) % placeholders.length;
+                    inputField.placeholder = placeholders[currentPlaceholderIndex];
+                    
+                    // Remove fade out, add fade in
+                    inputField.classList.remove('placeholder-fade-out');
+                    inputField.classList.add('placeholder-fade-in');
+                    
+                    setTimeout(() => {
+                        inputField.classList.remove('placeholder-fade-in');
+                        isAnimating = false;
+                    }, 500);
+                }, 500);
             }
 
-            // Start rotating after chat input appears, then every 4 seconds (longer to account for fade out + fade in)
+            // Start rotating after chat input appears, then every 5 seconds
             setTimeout(() => {
-                placeholderInterval = setInterval(rotatePlaceholder, 4000);
+                placeholderInterval = setInterval(rotatePlaceholder, 5000);
             }, 2000);
 
             // Handle chat form submission
