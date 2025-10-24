@@ -128,7 +128,7 @@
                 <div id="globe-container"></div>
                 <div id="globe-text"
                     class="absolute top-[15%] left-0 lg:left-[20%] text-left text-white z-20 pointer-events-none px-6">
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-medium text-gray-400 whitespace-nowrap">How can I help your shlichus today?</h2>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-light text-gray-400 whitespace-nowrap">How can I help you with your shlichus today?</h2>
                 </div>
                 <div id="chat-input"
                     class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl px-6 z-20 opacity-0">
@@ -136,7 +136,7 @@
                         class="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700 p-6">
                         <div class="flex items-center gap-4">
                             <input id="chat-input-field" type="text"
-                                placeholder="How can I help your shlichus today?"
+                                placeholder="How can I help you with your shlichus today?"
                                 class="flex-1 bg-gray-900/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl px-6 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                             <button type="submit"
                                 class="bg-gray-700 hover:bg-gray-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors">
@@ -277,12 +277,14 @@
                             class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                             <!-- Article 1 -->
                             <article class="flex flex-col items-start">
-                                <div class="relative w-full image-hover-container rounded-lg">
-                                    <a href="#" class="relative block">
-                                        <img src="https://arrendy.ai/cb/images/candles1a.png" alt="Article"
-                                            class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom" />
-                                        <img src="https://arrendy.ai/cb/images/candles1b.png" alt="Article Color"
-                                            class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500" />
+                                <div class="relative w-full image-hover-container rounded-lg overflow-hidden">
+                                    <a href="#" class="relative block group">
+                                        <div class="image-hover-zoom">
+                                            <img src="https://arrendy.ai/cb/images/candles1a.png" alt="Article"
+                                                class="aspect-square w-full rounded-lg bg-gray-800 object-cover" />
+                                            <img src="https://arrendy.ai/cb/images/candles1b.png" alt="Article Color"
+                                                class="aspect-square w-full rounded-lg bg-gray-800 object-cover absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                        </div>
                                     </a>
                                 </div>
                                 <div class="flex items-center gap-x-4 text-xs mt-6">
@@ -307,12 +309,14 @@
                             </article>
                             <!-- Article 2 -->
                             <article class="flex flex-col items-start">
-                                <div class="relative w-full image-hover-container rounded-lg">
-                                    <a href="#" class="relative block">
-                                        <img src="https://arrendy.ai/cb/images/torah4a.png" alt="Article"
-                                            class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom" />
-                                        <img src="https://arrendy.ai/cb/images/torah4b.png" alt="Article Color"
-                                            class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500" />
+                                <div class="relative w-full image-hover-container rounded-lg overflow-hidden">
+                                    <a href="#" class="relative block group">
+                                        <div class="image-hover-zoom">
+                                            <img src="https://arrendy.ai/cb/images/torah4a.png" alt="Article"
+                                                class="aspect-square w-full rounded-lg bg-gray-800 object-cover" />
+                                            <img src="https://arrendy.ai/cb/images/torah4b.png" alt="Article Color"
+                                                class="aspect-square w-full rounded-lg bg-gray-800 object-cover absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                        </div>
                                     </a>
                                 </div>
                                 <div class="flex items-center gap-x-4 text-xs mt-6">
@@ -337,12 +341,14 @@
                             </article>
                             <!-- Article 3 -->
                             <article class="flex flex-col items-start">
-                                <div class="relative w-full image-hover-container rounded-lg">
-                                    <a href="#" class="relative block">
-                                        <img src="https://arrendy.ai/cb/images/mezuzah1c.png" alt="Article"
-                                            class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom" />
-                                        <img src="https://arrendy.ai/cb/images/mezuzah1b.png" alt="Article Color"
-                                            class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500" />
+                                <div class="relative w-full image-hover-container rounded-lg overflow-hidden">
+                                    <a href="#" class="relative block group">
+                                        <div class="image-hover-zoom">
+                                            <img src="https://arrendy.ai/cb/images/mezuzah1c.png" alt="Article"
+                                                class="aspect-square w-full rounded-lg bg-gray-800 object-cover" />
+                                            <img src="https://arrendy.ai/cb/images/mezuzah1b.png" alt="Article Color"
+                                                class="aspect-square w-full rounded-lg bg-gray-800 object-cover absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                        </div>
                                     </a>
                                 </div>
                                 <div class="flex items-center gap-x-4 text-xs mt-6">
@@ -566,7 +572,7 @@
 
             // Rotating placeholder text
             const placeholders = [
-                "How can I help your shlichus today?",
+                "How can I help you with your shlichus today?",
                 "What is the meaning of this week's Torah portion?",
                 "Explain the laws of Shabbat candle lighting...",
                 "Tell me about the Rebbe's teachings on education",
