@@ -123,8 +123,8 @@
             <section class="relative" id="globe-section">
                 <div id="globe-container"></div>
                 <div id="globe-text"
-                    class="absolute top-[20%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-white z-20 pointer-events-none">
-                    <h2 class="text-4xl md:text-6xl font-semibold text-gray-400">How can I help your shlichus today?</h2>
+                    class="absolute top-[15%] left-0 lg:left-[20%] text-left text-white z-20 pointer-events-none px-6">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-400 whitespace-nowrap">How can I help your shlichus today?</h2>
                 </div>
                 <div id="chat-input"
                     class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl px-6 z-20 opacity-0">
@@ -516,6 +516,9 @@
                 }
                 animate();
 
+                // Start globe lower
+                globe.position.y = -1.5;
+                
                 gsap.timeline({
                     scrollTrigger: {
                         trigger: "#globe-section",
@@ -529,13 +532,12 @@
                         }
                     }
                 })
-                    // Phase 0: Move text to center and globe up (0-15%)
-                    .to("#globe-text", { top: "50%", ease: "power2.inOut" }, 0)
+                    // Phase 0: Move globe up (0-15%)
                     .to(globe.position, { y: 0, ease: "power2.inOut" }, 0)
                     // Phase 1: Spin globe and fade out text (15-30%)
                     .to(globe.rotation, { y: "+=3.14", ease: "none" }, 0)
                     .to(camera.position, { z: 180, ease: "power1.inOut" }, 0)
-                    .to("#globe-text", { opacity: 0, scale: 0.8, ease: "power1.in" }, 0.2)
+                    .to("#globe-text", { opacity: 0, ease: "power1.in" }, 0.2)
                     // Phase 2: Fade in chat input quickly (30-40%)
                     .to("#chat-input", { opacity: 1, scale: 1, ease: "power1.out", duration: 0.2 }, 0.3)
                     .to(globe.rotation, { y: "+=3.14", ease: "none" }, 0.25)
