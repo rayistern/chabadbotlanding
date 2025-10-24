@@ -48,7 +48,7 @@
         }
         
         .image-hover-zoom {
-            transition: transform 0.5s ease, opacity 0.5s ease;
+            transition: transform 0.3s ease;
         }
         
         .image-hover-container:hover .image-hover-zoom {
@@ -128,7 +128,7 @@
                 <div id="globe-container"></div>
                 <div id="globe-text"
                     class="absolute top-[15%] left-0 lg:left-[20%] text-left text-white z-20 pointer-events-none px-6">
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-normal text-gray-400 whitespace-nowrap">How can I help you with your shlichus today?</h2>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-medium text-gray-400 whitespace-nowrap">How can I help your shlichus today?</h2>
                 </div>
                 <div id="chat-input"
                     class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl px-6 z-20 opacity-0">
@@ -136,7 +136,7 @@
                         class="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700 p-6">
                         <div class="flex items-center gap-4">
                             <input id="chat-input-field" type="text"
-                                placeholder="How can I help you with your shlichus today?"
+                                placeholder="How can I help your shlichus today?"
                                 class="flex-1 bg-gray-900/50 text-white placeholder-gray-400 border border-gray-600 rounded-xl px-6 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                             <button type="submit"
                                 class="bg-gray-700 hover:bg-gray-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors">
@@ -278,11 +278,11 @@
                             <!-- Article 1 -->
                             <article class="flex flex-col items-start">
                                 <div class="relative w-full image-hover-container rounded-lg">
-                                    <a href="#" class="relative block group">
+                                    <a href="#" class="relative block">
                                         <img src="https://arrendy.ai/cb/images/candles1a.png" alt="Article"
                                             class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom" />
                                         <img src="https://arrendy.ai/cb/images/candles1b.png" alt="Article Color"
-                                            class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                                            class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500" />
                                     </a>
                                 </div>
                                 <div class="flex items-center gap-x-4 text-xs mt-6">
@@ -308,11 +308,11 @@
                             <!-- Article 2 -->
                             <article class="flex flex-col items-start">
                                 <div class="relative w-full image-hover-container rounded-lg">
-                                    <a href="#" class="relative block group">
+                                    <a href="#" class="relative block">
                                         <img src="https://arrendy.ai/cb/images/torah4a.png" alt="Article"
                                             class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom" />
                                         <img src="https://arrendy.ai/cb/images/torah4b.png" alt="Article Color"
-                                            class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                                            class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500" />
                                     </a>
                                 </div>
                                 <div class="flex items-center gap-x-4 text-xs mt-6">
@@ -338,11 +338,11 @@
                             <!-- Article 3 -->
                             <article class="flex flex-col items-start">
                                 <div class="relative w-full image-hover-container rounded-lg">
-                                    <a href="#" class="relative block group">
+                                    <a href="#" class="relative block">
                                         <img src="https://arrendy.ai/cb/images/mezuzah1c.png" alt="Article"
                                             class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom" />
                                         <img src="https://arrendy.ai/cb/images/mezuzah1b.png" alt="Article Color"
-                                            class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                                            class="aspect-square w-full rounded-lg bg-gray-800 object-cover image-hover-zoom absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500" />
                                     </a>
                                 </div>
                                 <div class="flex items-center gap-x-4 text-xs mt-6">
@@ -528,7 +528,7 @@
 
                 // Start globe lower and smaller
                 globe.position.y = -2.5;
-                globe.scale.set(0.6, 0.6, 0.6);
+                globe.scale.set(0.8, 0.8, 0.8);
                 
                 gsap.timeline({
                     scrollTrigger: {
@@ -543,22 +543,19 @@
                         }
                     }
                 })
-                    // Phase 0: Move globe up, scale to normal size, and move text down (0-10%)
-                    .to(globe.position, { y: 0, ease: "power2.out", duration: 0.1 }, 0)
-                    .to(globe.scale, { x: 1, y: 1, z: 1, ease: "power2.out", duration: 0.1 }, 0)
-                    .to("#globe-text", { top: "40%", ease: "power2.out", duration: 0.1 }, 0)
-                    // Phase 1: Spin globe (0-25%)
+                    // Phase 0: Move globe up and scale to normal size (0-15%)
+                    .to(globe.position, { y: 0, ease: "power2.inOut" }, 0)
+                    .to(globe.scale, { x: 1, y: 1, z: 1, ease: "power2.inOut" }, 0)
+                    // Phase 1: Spin globe and fade out text (15-30%)
                     .to(globe.rotation, { y: "+=3.14", ease: "none" }, 0)
                     .to(camera.position, { z: 180, ease: "power1.inOut" }, 0)
-                    // Phase 2: Fade out text as chat fades in (25-35%)
-                    .to("#globe-text", { opacity: 0, ease: "power1.inOut", duration: 0.1 }, 0.25)
-                    .to("#chat-input", { opacity: 1, scale: 1, ease: "power1.inOut", duration: 0.1 }, 0.25)
+                    .to("#globe-text", { opacity: 0, ease: "power1.in" }, 0.2)
+                    // Phase 2: Fade in chat input quickly (30-40%)
+                    .to("#chat-input", { opacity: 1, scale: 1, ease: "power1.out", duration: 0.2 }, 0.3)
                     .to(globe.rotation, { y: "+=3.14", ease: "none" }, 0.25)
-                    // Phase 3: Chat stays prominent, globe fades slowly (35-75%)
-                    .to("#globe-container", { opacity: 0, ease: "power2.inOut", duration: 0.4 }, 0.45)
-                    .to(camera.position, { z: 150, ease: "power1.inOut" }, 0.45)
-                    // Phase 4: Chat lingers alone (75-85%)
-                    .to("#chat-input", { opacity: 1 }, 0.75);
+                    // Phase 3: Chat stays prominent, globe fades VERY slowly (40-100%)
+                    .to("#globe-container", { opacity: 0, ease: "power2.inOut", duration: 0.6 }, 0.5)
+                    .to(camera.position, { z: 150, ease: "power1.inOut" }, 0.5);
 
                 window.addEventListener('resize', () => {
                     camera.aspect = globeContainer.offsetWidth / globeContainer.offsetHeight;
@@ -569,7 +566,7 @@
 
             // Rotating placeholder text
             const placeholders = [
-                "How can I help you with your shlichus today?",
+                "How can I help your shlichus today?",
                 "What is the meaning of this week's Torah portion?",
                 "Explain the laws of Shabbat candle lighting...",
                 "Tell me about the Rebbe's teachings on education",
