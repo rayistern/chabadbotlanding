@@ -190,8 +190,8 @@
                             <span id="cursor" class="cursor-blink absolute"
                                 style="left: 24px; top: 50%; transform: translateY(-50%); display: none;"></span>
                         </div>
-                        <button type="submit"
-                            class="bg-gray-700 hover:bg-gray-600 text-white font-semibold p-4 rounded-xl transition-colors flex items-center justify-center">
+                        <button type="submit" id="send-button"
+                            class="bg-gray-700 text-gray-500 font-semibold p-4 rounded-xl transition-all flex items-center justify-center cursor-not-allowed" disabled></button>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                                 stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -713,6 +713,8 @@
             const cursor = document.getElementById('cursor');
 
             // Show cursor always, hide only when user types
+            const sendButton = document.getElementById('send-button');
+            
             if (chatInputField && cursor) {
                 // Show cursor by default
                 cursor.style.display = 'inline-block';
@@ -724,12 +726,24 @@
                         if (!placeholderInterval) {
                             placeholderInterval = setInterval(rotatePlaceholder, 4000);
                         }
+                        // Disable send button when empty
+                        if (sendButton) {
+                            sendButton.disabled = true;
+                            sendButton.classList.remove('bg-white', 'text-black', 'hover:bg-gray-100', 'cursor-pointer');
+                            sendButton.classList.add('bg-gray-700', 'text-gray-500', 'cursor-not-allowed');
+                        }
                     } else {
                         cursor.style.display = 'none';
                         // Stop placeholder rotation when user types
                         if (placeholderInterval) {
                             clearInterval(placeholderInterval);
                             placeholderInterval = null;
+                        }
+                        // Enable send button when text is entered
+                        if (sendButton) {
+                            sendButton.disabled = false;
+                            sendButton.classList.remove('bg-gray-700', 'text-gray-500', 'cursor-not-allowed');
+                            sendButton.classList.add('bg-white', 'text-black', 'hover:bg-gray-100', 'cursor-pointer');
                         }
                     }
                 });
