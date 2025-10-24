@@ -1,5 +1,4 @@
 import React from "react"
-import Image from "next/image"
 
 const features = [
   {
@@ -55,15 +54,6 @@ export default function Features() {
                   {feature.title}
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-300">
-                  <div className="mb-4">
-                    <Image 
-                      src={feature.image} 
-                      alt={feature.title}
-                      width={400}
-                      height={300}
-                      className="rounded-lg object-cover w-full"
-                    />
-                  </div>
                   <p className="flex-auto">{feature.description}</p>
                 </dd>
               </div>
